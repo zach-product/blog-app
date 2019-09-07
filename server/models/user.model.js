@@ -12,6 +12,9 @@ const userSchema = new Schema(
             match: [/\S+@\S+\.\S+/, 'is invalid'], 
             index: true
         },
+        message: {
+            type: String,
+        },
         firstname: {
             type: String,
             trim: true,
