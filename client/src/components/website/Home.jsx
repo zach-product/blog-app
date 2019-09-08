@@ -50,13 +50,13 @@ export default class Home extends Component {
                             <div className="pb-4 pb-lg-5 pt-lg-0" style={logoContainer}>
                                 <img style={logoHome} src={logo} alt="logo"/>                            
                             </div>
-                            <h1 className="mb-4 mb-lg-4 text-white">Hi. I'm Zach. Nice to meet you!</h1>
-                            <div className="mb-4 mb-lg-4 ml-4 ml-lg-0 text-white" style={roleStyles}>
-                                <span className="col-12 col-lg-3 d-flex d-lg-inline my-3 my-lg-0">Product Manager</span> 
-                                    <span className="d-none d-lg-inline">&nbsp; • &nbsp;</span>
-                                <span className="col-12 col-lg-3 d-flex d-lg-inline my-3 my-lg-0">UX/UI Designer</span> 
-                                    <span className="col-12 d-none d-lg-inline">&nbsp; • &nbsp;</span>
-                                <span className="col-12 col-lg-3 d-flex d-lg-inline my-3 my-lg-0">Front End Developer</span>
+                            <h1 className="mb-5 mb-lg-4 text-white">Hi. I'm Zach. Nice to meet you!</h1>
+                            <div className="mb-5 mb-lg-4 text-white" style={roleStyles}>
+                                <span className="col-12 col-lg-3 d-flex d-lg-inline my-1 my-lg-0 justify-content-center">Product Manager</span> 
+                                    <span className="d-flex d-lg-inline justify-content-center">&nbsp; • &nbsp;</span>
+                                <span className="col-12 col-lg-3 d-flex d-lg-inline my-1 my-lg-0 justify-content-center">UX/UI Designer</span> 
+                                    <span className="col-12 d-flex d-lg-inline justify-content-center">&nbsp; • &nbsp;</span>
+                                <span className="col-12 col-lg-3 d-flex d-lg-inline my-1 my-lg-0 justify-content-center">Front End Developer</span>
                             </div>
                             <div className="w-100" style={mainContent}>
                                 <Link to="/about"><button onMouseEnter={this.toggleHoverAbout} onMouseLeave={this.toggleHoverAbout} style={ hoverAbout ? btnHomeHover : btnHome } className='col-12 col-lg-2 btn btn-lg m-lg-3 mb-3'>About</button></Link>
@@ -103,7 +103,7 @@ const mainContent = {
 }
 
 const logoContainer = {
-    paddingTop: "7rem"
+    paddingTop: "15rem"
 }
 
 const logoHome = {
