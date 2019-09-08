@@ -2,7 +2,7 @@
   "name": "blog-app",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/zach-product/website.git",
+  "repository": "https://github.com/zach-product/blog-app.git",
   "author": "zacharypritchard@gmail.com",
   "license": "MIT"
 }
