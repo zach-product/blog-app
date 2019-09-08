@@ -1,0 +1,14 @@
+div.DraftEditor-root {
+    background-color: #fff;
+    width:100%;
+    margin:auto;
+    box-shadow: 0px 0px 6px 1px rgba(0,0,0,0.5);
+    height:400px;
+    overflow-y: scroll;
+    padding:20px;
+    font-size: 18px;
+}
+
+button.btn-square:hover {
+    background: #D3D3D3;
+}
