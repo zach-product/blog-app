@@ -7,15 +7,14 @@ require('dotenv').config()
 
 const app = express()
 const port = process.env.PORT || 8000
-const secret = process.env.SECRET || "stay funky fresh"
 
 app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, "client", "build")))
 
-const uri = process.env.MONGODB_URI
+const uri = process.env.MONGOLAB_YELLOW_URI || "mongodb://localhost:27017/blog"
 mongoose
-    .connect(uri || "mongodb://localhost:27017/blog", { useNewUrlParser: true, useCreateIndex: true })
+    .connect(uri, { useNewUrlParser: true, useCreateIndex: true })
     .catch(e => {
         console.error('Connection error', e.message)
     })
