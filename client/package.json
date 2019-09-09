@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://zach-product.github.io",
+  "homepage": "https://zacharypritchard.com",
   "dependencies": {
     "@types/react-datepicker": "^2.8.1",
     "axios": "^0.19.0",
@@ -25,9 +25,9 @@
   },
   "scripts": {
     "start": "PORT=8000 react-scripts start",
-    "predeploy": "yarn run construct",
+    "predeploy": "yarn run build",
     "deploy": "gh-pages -d build",
-    "construct": "react-scripts build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
