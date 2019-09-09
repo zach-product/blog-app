@@ -49,7 +49,7 @@ export default class ContactForm extends Component {
 
         console.log(user)
 
-        axios.post('http://localhost:8000/users/add', user)
+        axios.post('/users/add', user)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
 
