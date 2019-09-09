@@ -13,8 +13,6 @@ export default class NavBarAbout extends Component {
         this.toggleHoverBtn = this.toggleHoverBtn.bind(this)
         this.onClickContactBtn = this.onClickContactBtn.bind(this)
         this.onClickCancel = this.onClickCancel.bind(this)
-        // this.onChangeInput = this.onChangeInput.bind(this)
-        // this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
             collapsed: true,
@@ -45,29 +43,6 @@ export default class NavBarAbout extends Component {
         })
     }
 
-    // onSubmit(e) {
-    //     e.preventDefault()
-
-
-    //     const user = {
-    //         email: this.state.email
-    //     }
-
-    //     console.log(user)
-
-    //     axios.post('http://localhost:3000/users/add', user)
-    //         .then(res => console.log(res.data))
-    //         .catch(err => console.log(err))
-            
-    //         this.setState({ emailSent: !this.state.emailSent })
-
-    //         this.handleClearForm()
-    // }
-
-    // handleClearForm(e) {
-    //     this.setState({ email: '', message:'' })
-    // }
-
     render() {
         const { collapsed, hoverBtn, contactForm } = this.state
         const classOne = collapsed ? 'collapse navbar-collapse justify-content-lg-between' : 'collapse navbar-collapse justify-content-lg-between show'
@@ -95,7 +70,7 @@ export default class NavBarAbout extends Component {
                             <span className="navbar-toggler-icon" />
                         </button>
                         <div className={`${classOne}`} id="navbarNav">
-                            <ul className="navbar-nav justify-content-inbetween">
+                            <ul className="navbar-nav justify-content-inbetween text-center">
                                 <li className="nav-item mx-3">
                                     <NavLink style={navLinks} className="nav-link" to="/about">About</NavLink>
                                 </li>
@@ -107,7 +82,7 @@ export default class NavBarAbout extends Component {
                                 </li>
                             </ul>
                             <div className="align-middle">
-                                <form className="form-inline mx-4 mx-lg-0 my-3 my-lg-0">
+                                <form className="text-center mx-lg-0 my-3 my-lg-0">
                                     <button onClick={this.onClickContactBtn} onMouseEnter={this.toggleHoverBtn} onMouseLeave={this.toggleHoverBtn} style={ hoverBtn || contactForm ? contactBtnHover : contactBtn} className="btn my-2 my-sm-0" type="submit">Contact Me</button>
                             `   </form>
                             </div>
