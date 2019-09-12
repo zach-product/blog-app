@@ -4,21 +4,29 @@ import moment from 'moment'
 import TextTruncate from 'react-text-truncate'
 import { NavBar } from '..';
 import './../../App.css'
+import backtowork from './../../assets/backtowork.jpg'
 
 const Blog = props => (
     <React.Fragment>
-        <Link to={"/blog/"+props.post.endURL}><h2 className="my-4">{props.post.title}</h2></Link>
-        {props.post.topics.map((item, index) => {
-            return <p key={index} className='btn btn-secondary btn-sm disabled mr-2'>{item}</p>
-        })}
-        <TextTruncate 
-            style={fontStyling}
-            line={2}
-            truncateText="..."
-            text={props.post.content.intro}
-            textTruncateChild={<Link to={"/blog/"+props.post.endURL}>Read on</Link>}
-        />
-        <i style={dateStyling}>{moment(props.post.published).format("MMMM D, YYYY")}</i>
+        <div className="row py-3">
+            <div className="col-12 col-lg-4" style={imgContainer}>
+                <img style={aboutImg} className="rounded" src={backtowork} alt="Back to Work!" />
+            </div>
+            <div className="col-12 col-lg-8">
+                <Link to={"/blog/"+props.post.endURL}><h2 className="mb-4 pt-3 pt-lg-0">{props.post.title}</h2></Link>
+                {props.post.topics.map((item, index) => {
+                    return <p key={index} className='btn btn-secondary btn-sm disabled mr-2'>{item}</p>
+                })}
+                <TextTruncate 
+                    style={fontStyling}
+                    line={2}
+                    truncateText="..."
+                    text={props.post.content.intro}
+                    textTruncateChild={<Link to={"/blog/"+props.post.endURL}>Read on</Link>}
+                />
+                <i style={dateStyling}>{moment(props.post.published).format("MMMM D, YYYY")}</i>
+            </div>
+        </div>
         <hr />
     </React.Fragment>
 )
@@ -76,7 +84,7 @@ export default class Posts extends Component {
             <React.Fragment>
                 <NavBar />
                 <div className="container" style={stickyHeader}>
-                    <div className="col-12 col-lg-10 offset-lg-1 pt-1">
+                    <div className="col-12 col-lg-10 offset-lg-1">
                         { this.blogList() }
                     </div>
                 </div>
@@ -98,4 +106,15 @@ const fontStyling = {
 const dateStyling = {
     fontSize: "16px",
     fontWeight: "350"
+}
+
+const imgContainer = {
+    display: "flex",
+}
+
+const aboutImg  = {
+    height: "100%",
+    width: "100%",
+    objectFit: "cover",
+    objectPosition: "-50% 50"
 }

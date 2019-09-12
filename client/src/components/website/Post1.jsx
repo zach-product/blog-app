@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import moment from 'moment'
-import { NavBar } from '..';
+import { NavBar } from '..'
 import './../../App.css'
+import backtowork from './../../assets/backtowork.jpg'
 
 export default class OnePost extends Component {
     constructor(props) {
@@ -47,8 +48,11 @@ export default class OnePost extends Component {
             <React.Fragment>
                 <NavBar />
                 <div className="container" style={stickyHeader}>
-                    <div className="col-12 col-lg-10 offset-lg-1 pt-4">
-                        <h1 className="mb-4">{title}</h1>
+                    <div className="col-12 col-lg-10 offset-lg-1 py-3 py-lg-2">
+                        <div style={imgContainer}>
+                            <img style={aboutImg} className="rounded" src={backtowork} alt="Back to Work!" />
+                        </div>
+                        <h1 className="my-4">{title}</h1>
                         {topics.map(item => {
                             return <p className='btn btn-secondary btn-sm disabled mr-2 mb-2'>{item}</p>
                         })}
@@ -76,4 +80,16 @@ const stickyHeader = {
 const fontStyling = {
     fontSize: "20px",
     fontWeight: "300",
+}
+
+const imgContainer = {
+    display: "flex",
+}
+
+const aboutImg  = {
+    height: "100%",
+    width: "100%",
+    maxHeight: "300px",
+    objectFit: "cover",
+    objectPosition: "-50% 50"
 }
