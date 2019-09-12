@@ -95,7 +95,7 @@ export default class ContactForm extends Component {
                 </div>
                 <div className="align-items-center">
                     <button onMouseEnter={this.toggleHoverBtn} onMouseLeave={this.toggleHoverBtn} style={ hoverBtn ? contactBtnHover : contactBtn } className="btn my-2 my-sm-0" type="submit">{ emailSent ? "Message Sent!" : "Send Message"}</button>
-                    <a className="ml-3" onMouseEnter={this.toggleHoverCancel} onMouseLeave={this.toggleHoverCancel} onClick={this.props.onClickCancel} style={ hoverCancel ? cancelLinkHover : cancelLink }>Cancel</a>
+                    <a href="# " className="ml-3" onMouseEnter={this.toggleHoverCancel} onMouseLeave={this.toggleHoverCancel} onClick={this.props.onClickCancel} style={ hoverCancel ? cancelLinkHover : cancelLink }>Cancel</a>
                 </div>
             </form>
         )

@@ -59,8 +59,8 @@ export default class OnePost extends Component {
                 <div className="container" style={stickyHeader}>
                     <div className="col-12 col-lg-10 offset-lg-1 pt-4">
                         <h1 className="mb-3">{title}</h1>
-                        {topics.map(item => {
-                            return <p className='btn btn-secondary btn-sm disabled mr-2 mb-2'>{item}</p>
+                        {topics.map((item, index) => {
+                            return <p key={index} className='btn btn-secondary btn-sm disabled mr-2 mb-2'>{item}</p>
                         })}
                         <p style={fontStyling} className="font-italic float-lg-right my-2">{moment(published).format("MMMM D, YYYY")}</p>
                         <hr className="mb-4" />
