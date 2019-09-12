@@ -4,6 +4,14 @@ const Schema = mongoose.Schema
 
 const userSchema = new Schema(
     {
+        firstname: {
+            type: String,
+            trim: true,
+        },
+        lastname: {
+            type: String,
+            trim: true,
+        },
         email: {
             type: String, 
             lowercase: true, 
@@ -13,17 +21,6 @@ const userSchema = new Schema(
             index: true
         },
         message: {
-            type: String,
-        },
-        firstname: {
-            type: String,
-            trim: true,
-        },
-        lastname: {
-            type: String,
-            trim: true,
-        },
-        shortbio: {
             type: String,
         },
     },

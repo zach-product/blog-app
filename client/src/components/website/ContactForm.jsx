@@ -11,6 +11,8 @@ export default class ContactForm extends Component {
         this.toggleHoverCancel = this.toggleHoverCancel.bind(this)
 
         this.state = {
+            firstname: '',
+            lastname: '',
             email: '',
             message: '',
             hoverBtn: false,
@@ -43,6 +45,8 @@ export default class ContactForm extends Component {
         e.preventDefault()
 
         const user = {
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
             email: this.state.email,
             message: this.state.message
         }
@@ -61,13 +65,26 @@ export default class ContactForm extends Component {
     }
 
     handleClearForm(e) {
-        this.setState({ email: '', message: '' })
+        this.setState({ 
+            firstname: '', 
+            lastname: '', 
+            email: '', 
+            message: '' 
+        })
     }
 
     render() {
-        const { email, message, hoverBtn, emailSent, hoverCancel } = this.state
+        const { firstname, lastname, email, message, hoverBtn, emailSent, hoverCancel } = this.state
         return (
             <form onSubmit={this.onSubmit} className="col-12 col-lg-4 offset-lg-8 p-3 mb-5 mt-2 mt-lg-1 rounded" style={formContainer}>
+                <div className="form-group">
+                    <label style={labelStyling} htmlFor="firstname">First Name:</label>
+                    <input type="text" required name="firstname" value={firstname} onChange={this.onChangeInput} className="form-control" id="firstname" aria-label="firstname" placeholder="Lucia" />                    
+                </div>
+                <div className="form-group">
+                    <label style={labelStyling} htmlFor="email">Last Name:</label>
+                    <input type="text" required name="lastname" value={lastname} onChange={this.onChangeInput} className="form-control" id="lastname" aria-label="lastname" placeholder="Johansen" />                    
+                </div>
                 <div className="form-group">
                     <label style={labelStyling} htmlFor="email">Email:</label>
                     <input type="email" required name="email" value={email} onChange={this.onChangeInput} className="form-control" id="email" aria-label="email" placeholder="have@greatday.com" />                    
