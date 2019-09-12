@@ -78,15 +78,15 @@ export default class ContactForm extends Component {
         return (
             <form onSubmit={this.onSubmit} className="col-12 col-lg-4 offset-lg-8 p-3 mb-5 mt-2 mt-lg-1 rounded" style={formContainer}>
                 <div className="form-group">
-                    <label style={labelStyling} htmlFor="firstname">First Name:</label>
+                    <label style={labelReqStyling} htmlFor="firstname">First Name:</label>
                     <input type="text" required name="firstname" value={firstname} onChange={this.onChangeInput} className="form-control" id="firstname" aria-label="firstname" placeholder="Lucia" />                    
                 </div>
                 <div className="form-group">
-                    <label style={labelStyling} htmlFor="email">Last Name:</label>
+                    <label style={labelReqStyling} htmlFor="email">Last Name:</label>
                     <input type="text" required name="lastname" value={lastname} onChange={this.onChangeInput} className="form-control" id="lastname" aria-label="lastname" placeholder="Johansen" />                    
                 </div>
                 <div className="form-group">
-                    <label style={labelStyling} htmlFor="email">Email:</label>
+                    <label style={labelReqStyling} htmlFor="email">Email:</label>
                     <input type="email" required name="email" value={email} onChange={this.onChangeInput} className="form-control" id="email" aria-label="email" placeholder="have@greatday.com" />                    
                 </div>
                 <div className="form-group">
@@ -112,6 +112,13 @@ const labelStyling = {
     fontWeight: "300",
     fontSize: "18px",
 
+}
+
+const labelReqStyling = {
+    color: "white",
+    fontWeight: "500",
+    fontSize: "18px",
+    letterSpacing: ".5px"
 }
 
 const contactBtn = {
