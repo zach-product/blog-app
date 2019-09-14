@@ -8,17 +8,17 @@ router.route('/').get((req, res) => {
 }) 
 
 router.route('/add').post((req, res) => {
-    const email = req.body.email
-    const message = req.body.message
     const firstname = req.body.firstname
     const lastname = req.body.lastname
-    const shortbio = req.body.shortbio
+    const email = req.body.email
+    const message = req.body.message
 
-    const newUser = new User({ email, message, firstname, lastname, shortbio })
+    const newUser = new User({ firstname, lastname, email, message })
 
     newUser.save()
         .then(() => res.json('User successfully added!'))
-        .catch(err => res.status(400).json('Error :' + err))        
+        .catch(err => res.status(400).json('Error :' + err))
+    
 })
 
 module.exports = router

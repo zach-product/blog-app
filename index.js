@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const path = require("path")
+const sendMail = require('./utils/sendMail')
 
 require('dotenv').config()
 
@@ -30,6 +31,7 @@ const usersRouter = require('./routes/users')
 
 app.use('/pubs', pubsRouter)
 app.use('/users', usersRouter)
+app.use('/api/mail', sendMail)
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"))

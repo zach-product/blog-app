@@ -56,12 +56,20 @@ export default class ContactForm extends Component {
         axios.post('/users/add', user)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
+        
+        axios.post('/api/mail/new_message', user)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err))
+        
+        axios.post('/api/mail/message_received', user)
+            .then(res => console.log(res.data))
+            .catch(err => console.log(err))
 
-            this.setState({ 
-                emailSent: !this.state.emailSent 
-            })
+        this.setState({ 
+            emailSent: !this.state.emailSent 
+        })
             
-            this.handleClearForm()
+        this.handleClearForm()
     }
 
     handleClearForm(e) {
