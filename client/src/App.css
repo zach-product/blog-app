@@ -12,3 +12,46 @@ div.DraftEditor-root {
 button.btn-square:hover {
     background: #D3D3D3;
 }
+
+
+/* Navbar button */
+
+.icon-bar {
+    width: 22px;
+    height: 2px;
+    background-color: #FFF;
+    display: block;
+    transition: all;
+    margin-top: 4px;
+}
+
+.navbar-toggler {
+    border: none;
+    background: transparent !important;
+}
+
+.top-bar {
+    transform: translateX(3px) rotate(45deg);
+    transform-origin: 10% 10%;
+}
+
+.middle-bar {
+    width: 0;
+}
+
+.bottom-bar {
+    transform: translateX(3px) rotate(-45deg);
+    transform-origin: 10% 90%;
+}
+
+.top-bar-collapsed {
+    transform: rotate(0);
+}
+
+.middle-bar-collapsed {
+    width: 22px;
+}
+
+.bottom-bar-collapsed {
+    transform: rotate(0);
+}

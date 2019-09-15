@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import './../../App.css'
-import ContactForm from './ContactForm' 
+import ContactForm from './ContactForm'
 
 import logo from '../../assets/logo.svg'
 
@@ -60,8 +60,11 @@ export default class NavBarAbout extends Component {
 
     render() {
         const { collapsed, hoverBtn, contactForm, emailSent } = this.state
-        const classOne = collapsed ? 'collapse navbar-collapse justify-content-lg-between' : 'collapse navbar-collapse justify-content-lg-between show'
-        const classTwo = collapsed ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right'
+        const class1 = collapsed ? 'collapse navbar-collapse justify-content-lg-between' : 'collapse navbar-collapse justify-content-lg-between show'
+        const class2 = collapsed ? 'navbar-toggler collapsed' : 'navbar-toggler'
+        const classTopBar = collapsed ? 'icon-bar top-bar-collapsed' : 'icon-bar top-bar'
+        const classMiddleBar = collapsed ? 'icon-bar middle-bar-collapsed' : 'icon-bar middle-bar'
+        const classBottomBar = collapsed ? 'icon-bar bottom-bar-collapsed' : 'icon-bar bottom-bar'
 
         return (
             <header className="fixed-top page-header">
@@ -69,21 +72,21 @@ export default class NavBarAbout extends Component {
                     <div className="container">
                         <Link to="/" className="navbar-brand brand-font align-middle mr-3">
                             <img src={logo} width="50" length="50" alt="Zach Pritchard" />
-                            {/* <span className="mx-3"></span> */}
                         </Link>
                         <button 
-                            onClick={this.toggleNavBar} 
-                            className={`${classTwo}`} 
-                            type="button"
-                            target="_blank"
+                            onClick={this.toggleNavBar}
+                            className={`${class2}`} 
+                            type="button" 
                             data-toggle="collapse" 
                             data-target="#navbarNav" 
                             aria-controls="navbarNav" 
                             aria-expanded="false" 
                             aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon" />
+                            <span className={`${classTopBar}`}></span>
+                            <span className={`${classMiddleBar}`}></span>
+                            <span className={`${classBottomBar}`}></span>
                         </button>
-                        <div className={`${classOne}`} id="navbarNav">
+                        <div className={`${class1}`} id="navbarNav">
                             <ul className="navbar-nav justify-content-inbetween text-center">
                                 <li className="nav-item mx-3">
                                     <NavLink style={navLinks} className="nav-link" to="/about">About</NavLink>
