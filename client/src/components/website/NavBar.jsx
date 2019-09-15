@@ -13,17 +13,32 @@ export default class NavBarAbout extends Component {
         this.toggleHoverBtn = this.toggleHoverBtn.bind(this)
         this.onClickContactBtn = this.onClickContactBtn.bind(this)
         this.onClickCancel = this.onClickCancel.bind(this)
+        this.toggleContactForm = this.toggleContactForm.bind(this)
+        this.toggleEmailSent = this.toggleEmailSent.bind(this)
 
         this.state = {
             collapsed: true,
             hoverBtn: false,
             contactForm: false,
+            emailSent: false
         }
     }
 
     onClickContactBtn(e) {
         e.preventDefault()
         this.setState({ contactForm: !this.state.contactForm, collapsed: !this.state.collapsed })
+    }
+
+    toggleContactForm(e) {
+        this.setState({
+            contactForm: !this.state.contactForm
+        })
+    }
+    
+    toggleEmailSent(e) {
+        this.setState({
+            emailSent: !this.state.emailSent
+        })
     }
 
     onClickCancel(e) {
@@ -44,10 +59,9 @@ export default class NavBarAbout extends Component {
     }
 
     render() {
-        const { collapsed, hoverBtn, contactForm } = this.state
+        const { collapsed, hoverBtn, contactForm, emailSent } = this.state
         const classOne = collapsed ? 'collapse navbar-collapse justify-content-lg-between' : 'collapse navbar-collapse justify-content-lg-between show'
         const classTwo = collapsed ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right'
-        
 
         return (
             <header className="fixed-top page-header">
@@ -83,14 +97,14 @@ export default class NavBarAbout extends Component {
                             </ul>
                             <div className="align-middle">
                                 <form className="text-center mx-lg-0 my-3 my-lg-0">
-                                    <button onClick={this.onClickContactBtn} onMouseEnter={this.toggleHoverBtn} onMouseLeave={this.toggleHoverBtn} style={ hoverBtn || contactForm ? contactBtnHover : contactBtn} className="btn my-2 my-sm-0" type="submit">Contact Me</button>
+                                    <button onClick={this.onClickContactBtn} onMouseEnter={this.toggleHoverBtn} onMouseLeave={this.toggleHoverBtn} style={ hoverBtn || contactForm ? contactBtnHover : contactBtn} className="btn my-2 my-sm-0" type="submit">{ emailSent ? "Message Sent!" : "Contact Me" }</button>
                             `   </form>
                             </div>
                         </div>
                     </div>
                 </nav>
                 <div className="container" style={ contactForm ? null : contactFormClosed }>
-                    <ContactForm onClickCancel={this.onClickCancel} />
+                    <ContactForm toggleContactForm={this.toggleContactForm} toggleEmailSent={this.toggleEmailSent} onClickCancel={this.onClickCancel} />
                 </div>
             </header>
         )

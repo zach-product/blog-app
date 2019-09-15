@@ -16,7 +16,6 @@ export default class ContactForm extends Component {
             email: '',
             message: '',
             hoverBtn: false,
-            emailSent: false,
             hoverCancel: false
         }
     }
@@ -64,12 +63,12 @@ export default class ContactForm extends Component {
         axios.post('/api/mail/message_received', user)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
-
-        this.setState({ 
-            emailSent: !this.state.emailSent 
-        })
             
         this.handleClearForm()
+
+        this.props.toggleContactForm()
+
+        this.props.toggleEmailSent()
     }
 
     handleClearForm(e) {
@@ -82,7 +81,8 @@ export default class ContactForm extends Component {
     }
 
     render() {
-        const { firstname, lastname, email, message, hoverBtn, emailSent, hoverCancel } = this.state
+        const { firstname, lastname, email, message, hoverBtn, hoverCancel } = this.state
+        
         return (
             <form onSubmit={this.onSubmit} className="col-12 col-lg-4 offset-lg-8 p-3 mb-5 mt-2 mt-lg-1 rounded" style={formContainer}>
                 <div className="form-group">
@@ -102,7 +102,7 @@ export default class ContactForm extends Component {
                     <textarea rows="3" type="text" name="message" value={message} onChange={this.onChangeInput} className="form-control" id="message" aria-label="message" placeholder="Include a message if you'd like (optional)" />                    
                 </div>
                 <div className="align-items-center">
-                    <button onMouseEnter={this.toggleHoverBtn} onMouseLeave={this.toggleHoverBtn} style={ hoverBtn ? contactBtnHover : contactBtn } className="btn my-2 my-sm-0" type="submit">{ emailSent ? "Message Sent!" : "Send Message"}</button>
+                    <button onMouseEnter={this.toggleHoverBtn} onMouseLeave={this.toggleHoverBtn} style={ hoverBtn ? contactBtnHover : contactBtn } className="btn my-2 my-sm-0" type="submit">Send Message</button>
                     <a href="# " className="ml-3" onMouseEnter={this.toggleHoverCancel} onMouseLeave={this.toggleHoverCancel} onClick={this.props.onClickCancel} style={ hoverCancel ? cancelLinkHover : cancelLink }>Cancel</a>
                 </div>
             </form>
