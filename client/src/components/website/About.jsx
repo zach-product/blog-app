@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavBar, Footer } from '..';
 import about from '../../assets/about.JPG'
+import './../../App.css'
 
 export default class Posts extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ export default class Posts extends Component {
                 <div className="container" style={stickyHeader}>
                     <div className="row">
                         <div className="col-12 col-lg-6 pt-2 pt-lg-1 px-3" style={imgContainer}>
-                            <img style={aboutImg} className="rounded" src={about} width="100%" alt="Zachary Pritchard" />   
+                            <img style={aboutImg} className="rounded about-img-mobile" src={about} width="100%" alt="Zachary Pritchard" />   
                         </div>
                         <div className="col-12 col-lg-6 p-3">
                             {this.state.about.map((line, index) => {

@@ -55,3 +55,14 @@ button.btn-square:hover {
 .bottom-bar-collapsed {
     transform: rotate(0);
 }
+
+/* Mobile */
+@media only screen and (max-width: 500px) {
+    .img-mobile {
+        max-height: 150px
+    }
+
+    .about-img-mobile {
+        max-height: 300px
+    }
+}

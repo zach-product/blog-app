@@ -91,5 +91,5 @@ const aboutImg  = {
     width: "100%",
     maxHeight: "300px",
     objectFit: "cover",
-    objectPosition: "-50% 50"
+    objectPosition: "-50% 50",
 }
