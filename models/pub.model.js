@@ -7,24 +7,16 @@ const pubSchema = new Schema(
             type: String, 
             required: true 
         },
-        author: { 
-            type: String, 
-            required: true 
-        },
-        topics: { 
-                type: [String],
-        },
-        content: { 
-            type: Object,
-            required: true 
-        },
-        published: { 
-            type: Date, 
-            required: true 
-        },
-        comments: { 
-            type: [String] 
-        }
+        topics: [String],
+        published: Date,
+        content: [{
+            header: String,
+            body: String,
+        }],
+        comments: [{
+            author: String,
+            comment: String
+        }],
     },
     { timestamps: true },
 )
