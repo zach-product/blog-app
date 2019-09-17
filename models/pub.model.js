@@ -9,10 +9,12 @@ const pubSchema = new Schema(
         },
         topics: [String],
         published: Date,
+        intro: String,
         content: [{
             header: String,
             body: String,
         }],
+        closing: String,
         comments: [{
             author: String,
             comment: String
