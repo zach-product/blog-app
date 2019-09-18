@@ -11,7 +11,7 @@ export default class Posts extends Component {
             about: [
                 "I'm Zach Pritchard, a product manager with UX design and front end development skills. I enjoy solving problems with technology and figuring out how and why products work.",
                 "Previously, I worked for Alchemist Accelerator, a top-ranked accelerator based in San Francisco. Prior to Alchemist, I was a founder of an on-demand storage business based in New York.",
-                "Currently, I'm looking for my next challenge targeting (but not limited to) the education, healthcare, and construction industries. I also generally enjoy products that remove complexity from people's lives.",
+                "Currently, I'm looking to join a collaborative product organization in the growth stage focusing on product iteration and diversification. I enjoy products that remove complexity from people's lives.",
                 "If you're interested in working together or just chatting about products, please send me a message using the Contact Me button."
             ]
         }
