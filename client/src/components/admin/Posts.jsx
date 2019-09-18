@@ -27,9 +27,9 @@ export default class Posts extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/pubs/')
-            .then(response => {
-                this.setState({ posts: response.data })
+        axios.get('http://localhost:8000/pubs')
+            .then(res => {
+                this.setState({ posts: res.data })
             })
             .catch((err => {
                 console.log(err)
@@ -37,7 +37,7 @@ export default class Posts extends Component {
     }
 
     deletePost(id) {
-        axios.delete('http://localhost:3000/pubs/'+id)
+        axios.delete('/pubs/'+id)
             .then(res => console.log(res.data))
         
         this.setState({

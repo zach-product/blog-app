@@ -12,21 +12,21 @@ export default class EditPost extends Component {
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
+            header_img: '',
             title: '',
-            author: '',
             topics: '',
-            content: '',
             published: new Date(),
-            users: [],
+            content: '',
+            
         }
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/pubs/'+this.props.match.params.id)
+        axios.get('/pubs/'+this.props.match.params.id)
             .then(response => {
                 this.setState({
+                    header_img: response.data.header_img,
                     title: response.data.title,
-                    author: response.data.author,
                     topics: response.data.topics,
                     content: response.data.content,
                     published: new Date(response.data.published)
@@ -34,15 +34,6 @@ export default class EditPost extends Component {
             })
             .catch(err => {
                 console.log(err)
-            })
-
-        axios.get('http://localhost:3000/users/')
-            .then(response => {
-                if(response.data.length > 0) {
-                    this.setState({
-                        users: response.data.map(user => user.firstname + ' ' + user.lastname),
-                    })
-                }
             })
     }
 
@@ -64,27 +55,37 @@ export default class EditPost extends Component {
         e.preventDefault()
         
         const post = {
+            header_img: this.state.header_img,
             title: this.state.title,
-            author: this.state.author,
             topics: this.state.topics,
-            content: this.state.content,
             published: this.state.published,
+            content: this.state.content,
         }
 
         console.log(post)
 
-        axios.post('http://localhost:3000/pubs/update/'+this.props.match.params.id, post)
+        axios.post('/pubs/update/'+this.props.match.params.id, post)
             .then(res => console.log(res.data))
 
         window.location = '/admin/posts'
     }
 
     render() {
-        const { title, author, topics, content, published } = this.state
+        const { header_img, title, topics, content, published } = this.state
         return (
-            <div className="container" style={navSpace}>
+            <div className="container" style={stickyHeader}>
                 <h3 className='mb-3'>Edit Post</h3>
                 <form onSubmit={this.onSubmit}>
+                    <div className="form-group">
+                        <label>Header Image Link:</label>
+                        <input
+                            type="url"
+                            className="form-control"
+                            name="header_img"
+                            value={header_img}
+                            onChange={this.onChangeInput}
+                        />
+                    </div>
                     <div className="form-group">
                         <label>Title:</label>
                         <input
@@ -96,31 +97,23 @@ export default class EditPost extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Author:</label>
-                        <select
-                            ref="userInput"
-                            required
-                            className="form-control"
-                            name="author"
-                            value={author}
-                            onChange={this.onChangeInput}>
-                                {
-                                    this.state.users.map(user => {
-                                        return <option
-                                            key={user}
-                                            value={user}>{user}
-                                        </option>
-                                    })
-                                }
-                        </select>
-                    </div>
-                    <div className="form-group">
                         <label>Topics:</label>
                         <input
                             type="text"
                             className="form-control"
                             name="topics"
                             value={topics}
+                            onChange={this.onChangeInput}
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Content:</label>
+                        <textarea
+                            type="text"
+                            rows="10"
+                            className="form-control"
+                            name="content"
+                            value={content}
                             onChange={this.onChangeInput}
                         />
                     </div>
@@ -157,6 +150,6 @@ export default class EditPost extends Component {
     }
 }
 
-const navSpace = {
-    marginTop: "76px" 
+const stickyHeader = {
+    marginTop: "calc(70px + 3%)",
 }

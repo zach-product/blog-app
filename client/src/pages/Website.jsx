@@ -8,13 +8,13 @@ export default class Website extends Component {
         return ( 
             <Router>
                 <Switch>
+                    <Route path="/" exact component={Home} />
                     <Route path="/about" exact component={About} />
                     <Route path="/portfolio" exact component={Portfolio} />
                     <Route path="/portfolio/alchemist" component={ProjectAlchemist} />
                     <Route path="/portfolio/signonsite" component={ProjectSignOnSite} />
                     <Route path="/blog" exact component={Blog} />
                     <Route path="/blog/post1" component={Post1} />
-                    <Route path="/" exact component={Home} />
                     <Redirect from="*" to="/" />  
                 </Switch>
             </Router>

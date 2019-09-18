@@ -16,25 +16,12 @@ export default class CreatePost extends Component {
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
+            header_img: '',
             title: '',
-            author: '',
             topics: '',
-            content: {},
             published: new Date(),
-            users: [],
+            content: '',
         }
-    }
-
-    componentDidMount() {
-        axios.get('http://localhost:3000/users/')
-            .then(response => {
-                if(response.data.length > 0) {
-                    this.setState({
-                        users: response.data.map(user => user.firstname + ' ' + user.lastname),
-                        author: response.data[0].firstname + ' ' + response.data[0].lastname
-                    })
-                }
-            })
     }
 
     onChangeInput(e) {
@@ -77,8 +64,8 @@ export default class CreatePost extends Component {
         e.preventDefault()
 
         const post = {
+            header_img: this.state.header_img,
             title: this.state.title,
-            author: this.state.author,
             topics: this.state.topics,
             content: this.state.content,
             published: this.state.published,
@@ -86,7 +73,7 @@ export default class CreatePost extends Component {
 
         console.log(post)
 
-        axios.post('http://localhost:3000/pubs/add', post)
+        axios.post('/pubs/add', post)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
 
@@ -94,12 +81,21 @@ export default class CreatePost extends Component {
     }
 
     render() {
-        const { title, author, topics, published } = this.state
+        const { header_img, title, topics, published } = this.state
         return (
             <div className="container" style={navSpace}>
                 <div className="col-12 col-lg-10 offset-lg-1">
                     <h3 className='mb-3'>Create New Post</h3>
                     <form onSubmit={this.onSubmit}>
+                        <div className="form-group">
+                            <label>Header Image Link:</label>
+                            <input
+                                type="url"
+                                className="form-control"
+                                name="header_img"
+                                value={header_img}
+                            />
+                        </div>
                         <div className="form-group">
                             <label>Title:</label>
                             <input
@@ -108,27 +104,7 @@ export default class CreatePost extends Component {
                                 name="title"
                                 value={title}
                                 onChange={this.onChangeInput}
-                                onBlur={this.trimInput}
                             />
-                        </div>
-                        <div className="form-group">
-                            <label>Author:</label>
-                            <select
-                                ref="userInput"
-                                required
-                                className="form-control"
-                                name="author"
-                                value={author}
-                                onChange={this.onChangeInput}>
-                                    {
-                                        this.state.users.map(user => {
-                                            return <option
-                                                key={user}
-                                                value={user}>{user}
-                                            </option>
-                                        })
-                                    }
-                            </select>
                         </div>
                         <div className="form-group">
                             <label>Topics:</label>

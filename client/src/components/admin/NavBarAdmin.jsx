@@ -31,7 +31,7 @@ export default class NavBarAdmin extends Component {
                     <div className="container">
                         <Link to="/admin/posts" className="navbar-brand brand-font align-middle">
                             <img src={logo} width="50" length="50" alt="Zachary Pritchard" />
-                            <span className="ml-3">Zach Pritchard - Admin</span>
+                            <span className="ml-3">Admin</span>
                         </Link>
                         <button 
                             onClick={this.toggleNavBar} 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
-import { NavBarAdmin, Posts, CreatePost, ContentEditor, EditPost, Projects, CreateProject, EditProject, CreateUser } from '../components';
+import { NavBarAdmin, Posts, CreatePost, EditPost, Projects, CreateProject, EditProject, CreateUser } from '../components';
 
 export class Admin extends Component {
     render() {
@@ -12,7 +12,6 @@ export class Admin extends Component {
                 <Switch>
                     <Route path="/admin/posts" exact component={Posts} />
                     <Route path="/admin/posts/create" component={CreatePost} />
-                    <Route path="/admin/posts/contenteditor" component={ContentEditor} />
                     <Route path="/admin/posts/edit/:id" component={EditPost} />
                     <Route path="/admin/projects" exact component={Projects} />
                     <Route path="/admin/projects/create" component={CreateProject} />

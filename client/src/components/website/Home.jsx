@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import logo from '../../assets/logo.svg'
 import { Link } from 'react-router-dom'
-
 import '../../App.css'
 
 export default class Home extends Component {
@@ -48,7 +47,7 @@ export default class Home extends Component {
                     <div style={homeContainer}>
                         <div  className="col-12 pb-2 mt-5 mt-lg-0" style={mainContent}>
                             <div className="pb-4 pb-lg-5 pt-lg-0" style={logoContainer}>
-                                <img style={logoHome} src={logo} alt="logo"/>                            
+                                <img style={logoHome} className="logo-mobile" src={logo} alt="logo"/>                            
                             </div>
                             <h1 className="mb-5 mb-lg-4 text-white">Hi. I'm Zach. Nice to meet you!</h1>
                             <div className="mb-5 mb-lg-4 text-white" style={roleStyles}>
@@ -103,7 +102,7 @@ const mainContent = {
 }
 
 const logoContainer = {
-    paddingTop: "15rem"
+    paddingTop: "12rem"
 }
 
 const logoHome = {

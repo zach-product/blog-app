@@ -3,20 +3,24 @@ const Schema = mongoose.Schema
 
 const pubSchema = new Schema(
     {
+        header_img: { type: String, trim: true },
         title: { 
             type: String, 
-            required: true 
+            required: true,
+            trim: true 
         },
-        topics: [String],
+        topics: [{ type: String, trim: true }],
         published: Date,
-        intro: String,
-        content: [{
-            header: String,
-            body: String,
-        }],
-        closing: String,
+        content: {
+            intro: String,
+            sections: [{
+                header: String,
+                body: String,
+            }],
+            closing: String,
+        },
         comments: [{
-            author: String,
+            author: { type: String, trim: true },
             comment: String
         }],
     },
