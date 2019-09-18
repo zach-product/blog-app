@@ -58,6 +58,10 @@ button.btn-square:hover {
 
 /* Mobile */
 @media only screen and (max-width: 500px) {
+    .logo-mobile {
+        max-height: 200px
+    }
+    
     .img-mobile {
         max-height: 150px
     }
