@@ -17,7 +17,7 @@ export default class EditPost extends Component {
             title: '',
             topics: '',
             published: new Date(),
-            content: '', 
+            intro: '', 
         }
     }
 
@@ -28,7 +28,7 @@ export default class EditPost extends Component {
                     header_pic: response.data.header_pic,
                     title: response.data.title,
                     topics: response.data.topics,
-                    content: response.data.content,
+                    intro: response.data.intro,
                     published: new Date(response.data.published)
                 })
             })
@@ -67,7 +67,7 @@ export default class EditPost extends Component {
             title: this.state.title,
             topics: this.state.topics,
             published: this.state.published,
-            content: this.state.content,
+            intro: this.state.intro,
         }
 
         console.log(post)
@@ -79,7 +79,7 @@ export default class EditPost extends Component {
     }
 
     render() {
-        const { header_pic, title, topics, content, published } = this.state
+        const { header_pic, title, topics, intro, published } = this.state
         return (
             <div className="container" style={stickyHeader}>
                 <h3 className='mb-3'>Edit Post</h3>
@@ -125,13 +125,13 @@ export default class EditPost extends Component {
                         </div>
                     </div>
                     <div className="form-group">
-                        <label>Content:</label>
+                        <label>Intro:</label>
                         <textarea
                             type="text"
                             rows="10"
                             className="form-control"
-                            name="content"
-                            value={content}
+                            name="intro"
+                            value={intro}
                             onChange={this.onChangeInput}
                         />
                     </div>            

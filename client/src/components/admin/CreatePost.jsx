@@ -20,7 +20,7 @@ export default class CreatePost extends Component {
             title: '',
             topics: '',
             published: new Date(),
-            content: '',
+            intro: '',
         }
     }
 
@@ -54,11 +54,11 @@ export default class CreatePost extends Component {
         this.setState({ [name]: trimmedStr })
     }
 
-    onChangeContent(newContent) {
-        this.setState({
-            content: newContent
-        })
-    }
+    // onChangeContent(newContent) {
+    //     this.setState({
+    //         content: newContent
+    //     })
+    // }
 
     onSubmit(e) {
         e.preventDefault()
@@ -67,7 +67,7 @@ export default class CreatePost extends Component {
             header_pic: this.state.header_pic,
             title: this.state.title,
             topics: this.state.topics,
-            content: this.state.content,
+            intro: this.state.intro,
             published: this.state.published,
         }
 
@@ -81,7 +81,7 @@ export default class CreatePost extends Component {
     }
 
     render() {
-        const { header_pic, title, topics, published, content } = this.state
+        const { header_pic, title, topics, published, intro } = this.state
         return (
             <div className="container" style={stickyHeader}>
                 <div className="col-12 col-lg-10 offset-lg-1">
@@ -127,13 +127,13 @@ export default class CreatePost extends Component {
                             </div>
                         </div>
                         <div className="form-group">
-                            <label>Content:</label>
+                            <label>Intro:</label>
                             <textarea
                                 type="text"
                                 rows="10"
                                 className="form-control"
-                                name="content"
-                                value={content}
+                                name="intro"
+                                value={intro}
                                 onChange={this.onChangeInput}
                             />
                         </div>

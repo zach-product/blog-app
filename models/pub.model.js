@@ -12,9 +12,8 @@ const pubSchema = new Schema(
         topics: { 
                 type: [String],
         },
-        content: { 
-            type: Object,
-            required: true 
+        intro: { 
+            type: String,
         },
         published: { 
             type: Date,
