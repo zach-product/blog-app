@@ -16,7 +16,7 @@ export default class CreatePost extends Component {
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
-            header_img: '',
+            header_pic: '',
             title: '',
             topics: '',
             published: new Date(),
@@ -64,7 +64,7 @@ export default class CreatePost extends Component {
         e.preventDefault()
 
         const post = {
-            header_img: this.state.header_img,
+            header_pic: this.state.header_pic,
             title: this.state.title,
             topics: this.state.topics,
             content: this.state.content,
@@ -81,19 +81,19 @@ export default class CreatePost extends Component {
     }
 
     render() {
-        const { title, topics, published } = this.state
+        const { header_pic, title, topics, published } = this.state
         return (
             <div className="container" style={navSpace}>
                 <div className="col-12 col-lg-10 offset-lg-1">
                     <h3 className='mb-3'>Create New Post</h3>
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
-                            <label>Header Image Link:</label>
+                            <label>Header Image URL:</label>
                             <input
                                 type="url"
                                 className="form-control"
-                                name="header_img"
-                                value={header_img}
+                                name="header_pic"
+                                value={header_pic}
                             />
                         </div>
                         <div className="form-group">

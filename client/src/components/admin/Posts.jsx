@@ -5,6 +5,7 @@ import moment from 'moment'
 
 const Post = props => (
     <tr>
+        <td className="align-middle">{props.post.header_pic}</td>
         <td className="align-middle">{props.post.title}</td>
         <td className="align-middle">{props.post.topics.join(", ")}</td>
         <td className="align-middle">{moment(props.post.published).format("MMMM D, YYYY")}</td>
@@ -60,6 +61,7 @@ export default class Posts extends Component {
                 <table className="table" >
                     <thead>
                         <tr>
+                            <th scope="col">Header Pic</th>
                             <th scope="col">Title</th>
                             <th scope="col">Topics</th>
                             <th scope="col">Published</th>

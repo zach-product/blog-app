@@ -13,7 +13,7 @@ export default class EditPost extends Component {
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
-            header_img: '',
+            header_pic: '',
             title: '',
             topics: '',
             published: new Date(),
@@ -26,7 +26,7 @@ export default class EditPost extends Component {
         axios.get('/pubs/'+this.props.match.params.id)
             .then(response => {
                 this.setState({
-                    header_img: response.data.header_img,
+                    header_pic: response.data.header_pic,
                     title: response.data.title,
                     topics: response.data.topics,
                     content: response.data.content,
@@ -64,7 +64,7 @@ export default class EditPost extends Component {
         e.preventDefault()
         
         const post = {
-            header_img: this.state.header_img,
+            header_pic: this.state.header_pic,
             title: this.state.title,
             topics: this.state.topics,
             published: this.state.published,
@@ -80,18 +80,18 @@ export default class EditPost extends Component {
     }
 
     render() {
-        const { title, topics, content, published } = this.state
+        const { header_pic, title, topics, content, published } = this.state
         return (
             <div className="container" style={stickyHeader}>
                 <h3 className='mb-3'>Edit Post</h3>
                 <form onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <label>Header Image Link:</label>
+                        <label>Header Image URL:</label>
                         <input
                             type="url"
                             className="form-control"
-                            name="header_img"
-                            value={header_img}
+                            name="header_pic"
+                            value={header_pic}
                             onChange={this.onChangeInput}
                         />
                     </div>
