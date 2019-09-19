@@ -17,8 +17,7 @@ export default class EditPost extends Component {
             title: '',
             topics: '',
             published: new Date(),
-            content: '',
-            
+            content: '', 
         }
     }
 
@@ -117,28 +116,6 @@ export default class EditPost extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Content:</label>
-                        <textarea
-                            type="text"
-                            rows="10"
-                            className="form-control"
-                            name="content"
-                            value={content}
-                            onChange={this.onChangeInput}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Content:</label>
-                        <textarea
-                            type="text"
-                            rows="10"
-                            className="form-control"
-                            name="content"
-                            value={content}
-                            onChange={this.onChangeInput}
-                        />
-                    </div>
-                    <div className="form-group">
                         <label>Published:</label>
                         <div>
                             <DatePicker
@@ -147,6 +124,17 @@ export default class EditPost extends Component {
                             />
                         </div>
                     </div>
+                    <div className="form-group">
+                        <label>Content:</label>
+                        <textarea
+                            type="text"
+                            rows="10"
+                            className="form-control"
+                            name="content"
+                            value={content}
+                            onChange={this.onChangeInput}
+                        />
+                    </div>            
                     <div className="form-group">
                         <input
                             type="submit"
@@ -161,5 +149,5 @@ export default class EditPost extends Component {
 }
 
 const stickyHeader = {
-    marginTop: "calc(70px + 3%)",
+    marginTop: "calc(30px + 3%)",
 }

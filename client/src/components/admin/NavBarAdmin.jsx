@@ -33,7 +33,7 @@ export default class NavBarAdmin extends Component {
                             <img src={logo} width="50" length="50" alt="Zachary Pritchard" />
                             <span className="ml-3">Admin</span>
                         </Link>
-                        <button 
+                        {/* <button 
                             onClick={this.toggleNavBar} 
                             className={`${classTwo}`} 
                             type="button"
@@ -57,7 +57,7 @@ export default class NavBarAdmin extends Component {
                             <div className="align-middle float-right my-2">
                                 <Link className="btn btn-outline-light font-weight-bold" to="/admin/users/create" role="button">Create User</Link>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </nav>
             </header>

@@ -81,9 +81,9 @@ export default class CreatePost extends Component {
     }
 
     render() {
-        const { header_pic, title, topics, published } = this.state
+        const { header_pic, title, topics, published, content } = this.state
         return (
-            <div className="container" style={navSpace}>
+            <div className="container" style={stickyHeader}>
                 <div className="col-12 col-lg-10 offset-lg-1">
                     <h3 className='mb-3'>Create New Post</h3>
                     <form onSubmit={this.onSubmit}>
@@ -117,17 +117,6 @@ export default class CreatePost extends Component {
                                 onBlur={this.cleanInputArray}
                             />
                         </div>
-                        {/* <div className="form-group">
-                            <label>Content:</label>
-                            <textarea
-                                type="text"
-                                rows="10"
-                                className="form-control"
-                                name="content"
-                                value={content}
-                                onChange={this.onChangeInput}
-                            />
-                        </div> */}
                         <div className="form-group">
                             <label>Published:</label>
                             <div>
@@ -138,11 +127,22 @@ export default class CreatePost extends Component {
                             </div>
                         </div>
                         <div className="form-group">
+                            <label>Content:</label>
+                            <textarea
+                                type="text"
+                                rows="10"
+                                className="form-control"
+                                name="content"
+                                value={content}
+                                onChange={this.onChangeInput}
+                            />
+                        </div>
+                        {/* <div className="form-group">
                             <label>Content: </label>
                             <ContentEditor
                                 onChangeContent={this.onChangeContent}
                             />
-                        </div>
+                        </div> */}
                         <div className="form-group">
                             <input
                                 type="submit"
@@ -157,6 +157,6 @@ export default class CreatePost extends Component {
     }
 }
 
-const navSpace = {
-    marginTop: "calc(70px + 3%)" 
+const stickyHeader = {
+    marginTop: "calc(30px + 3%)"
 }

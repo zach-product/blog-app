@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const pubSchema = new Schema(
     {
-        header_img: { type: String, trim: true },
+        header_pic: { type: String, trim: true },
         title: { 
             type: String, 
             required: true,

@@ -8,7 +8,7 @@ router.route('/').get((req, res) => {
 })
 
 router.route('/add').post((req, res) => {
-    const header_img = req.body.header_img
+    const header_pic = req.body.header_pic
     const title = req.body.title
     const topics = req.body.topics
     const published = Date.parse(req.body.published)
@@ -16,7 +16,7 @@ router.route('/add').post((req, res) => {
     const comments = req.body.comments
 
     const newPub = new Pub({
-        header_img,
+        header_pic,
         title,
         topics,
         published,
@@ -44,7 +44,7 @@ router.route('/:id').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
     Pub.findById(req.params.id)
         .then(pub => {
-            pub.header_img = req.body.header_img
+            pub.header_pic = req.body.header_pic
             pub.title = req.body.title
             pub.topics = req.body.topics
             pub.published = Date.parse(req.body.published)
