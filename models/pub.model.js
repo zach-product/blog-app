@@ -12,11 +12,14 @@ const pubSchema = new Schema(
         topics: { 
                 type: [String],
         },
+        published: { 
+            type: Date,
+        },
         intro: { 
             type: String,
         },
-        published: { 
-            type: Date,
+        closing: { 
+            type: String,
         },
         comments: [{
             author: { type: String, trim: true },

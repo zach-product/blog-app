@@ -18,6 +18,7 @@ export default class EditPost extends Component {
             topics: '',
             published: new Date(),
             intro: '', 
+            closing: '', 
         }
     }
 
@@ -28,8 +29,9 @@ export default class EditPost extends Component {
                     header_pic: response.data.header_pic,
                     title: response.data.title,
                     topics: response.data.topics,
+                    published: new Date(response.data.published),
                     intro: response.data.intro,
-                    published: new Date(response.data.published)
+                    intro: response.data.closing,
                 })
             })
             .catch(err => {
@@ -68,6 +70,7 @@ export default class EditPost extends Component {
             topics: this.state.topics,
             published: this.state.published,
             intro: this.state.intro,
+            closing: this.state.closing,
         }
 
         console.log(post)
@@ -79,7 +82,7 @@ export default class EditPost extends Component {
     }
 
     render() {
-        const { header_pic, title, topics, intro, published } = this.state
+        const { header_pic, title, topics, published, intro, closing } = this.state
         return (
             <div className="container" style={stickyHeader}>
                 <h3 className='mb-3'>Edit Post</h3>
@@ -132,6 +135,17 @@ export default class EditPost extends Component {
                             className="form-control"
                             name="intro"
                             value={intro}
+                            onChange={this.onChangeInput}
+                        />
+                    </div>            
+                    <div className="form-group">
+                        <label>Closing:</label>
+                        <textarea
+                            type="text"
+                            rows="5"
+                            className="form-control"
+                            name="closing"
+                            value={closing}
                             onChange={this.onChangeInput}
                         />
                     </div>            

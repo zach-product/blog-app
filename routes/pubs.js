@@ -13,6 +13,7 @@ router.route('/add').post((req, res) => {
     const topics = req.body.topics
     const published = Date.parse(req.body.published)
     const intro = req.body.intro
+    const closing = req.body.closing
     const comments = req.body.comments
 
     const newPub = new Pub({
@@ -21,6 +22,7 @@ router.route('/add').post((req, res) => {
         topics,
         published,
         intro,
+        closing,
         comments,
     })
 
@@ -49,6 +51,7 @@ router.route('/update/:id').post((req, res) => {
             pub.topics = req.body.topics
             pub.published = Date.parse(req.body.published)
             pub.intro = req.body.intro
+            pub.closing = req.body.closing
             pub.comments = req.body.comments
             
             pub.save()

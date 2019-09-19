@@ -10,7 +10,7 @@ export default class CreatePost extends Component {
 
         this.onChangeInput = this.onChangeInput.bind(this)
         this.onChangePublished = this.onChangePublished.bind(this)
-        this.onChangeContent = this.onChangeContent.bind(this)
+        // this.onChangeContent = this.onChangeContent.bind(this)
         this.trimInput = this.trimInput.bind(this)
         this.cleanInputArray = this.cleanInputArray.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -21,6 +21,7 @@ export default class CreatePost extends Component {
             topics: '',
             published: new Date(),
             intro: '',
+            closing: '',
         }
     }
 
@@ -67,8 +68,9 @@ export default class CreatePost extends Component {
             header_pic: this.state.header_pic,
             title: this.state.title,
             topics: this.state.topics,
-            intro: this.state.intro,
             published: this.state.published,
+            intro: this.state.intro,
+            closing: this.state.closing,
         }
 
         console.log(post)
@@ -77,11 +79,11 @@ export default class CreatePost extends Component {
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
 
-        // window.location = '/admin/posts'
+        window.location = '/admin/posts'
     }
 
     render() {
-        const { header_pic, title, topics, published, intro } = this.state
+        const { header_pic, title, topics, published, intro, closing } = this.state
         return (
             <div className="container" style={stickyHeader}>
                 <div className="col-12 col-lg-10 offset-lg-1">
@@ -94,6 +96,7 @@ export default class CreatePost extends Component {
                                 className="form-control"
                                 name="header_pic"
                                 value={header_pic}
+                                onChange={this.onChangeInput}
                             />
                         </div>
                         <div className="form-group">
@@ -134,6 +137,17 @@ export default class CreatePost extends Component {
                                 className="form-control"
                                 name="intro"
                                 value={intro}
+                                onChange={this.onChangeInput}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Closing:</label>
+                            <textarea
+                                type="text"
+                                rows="5"
+                                className="form-control"
+                                name="closing"
+                                value={closing}
                                 onChange={this.onChangeInput}
                             />
                         </div>
