@@ -6,7 +6,6 @@ import moment from 'moment'
 const Post = props => (
     <tr>
         <td className="align-middle">{props.post.title}</td>
-        <td className="align-middle">{props.post.author}</td>
         <td className="align-middle">{props.post.topics.join(", ")}</td>
         <td className="align-middle">{moment(props.post.published).format("MMMM D, YYYY")}</td>
         <td className="align-middle">
@@ -27,7 +26,7 @@ export default class Posts extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/pubs/')
+        axios.get('/pubs')
             .then(response => {
                 this.setState({ posts: response.data })
             })
@@ -37,7 +36,7 @@ export default class Posts extends Component {
     }
 
     deletePost(id) {
-        axios.delete('http://localhost:3000/pubs/'+id)
+        axios.delete('/pubs/'+id)
             .then(res => console.log(res.data))
         
         this.setState({
@@ -62,7 +61,6 @@ export default class Posts extends Component {
                     <thead>
                         <tr>
                             <th scope="col">Title</th>
-                            <th scope="col">Authors</th>
                             <th scope="col">Topics</th>
                             <th scope="col">Published</th>
                             <th scope="col"></th>

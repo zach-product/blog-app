@@ -17,24 +17,11 @@ export default class CreatePost extends Component {
 
         this.state = {
             title: '',
-            author: '',
             topics: '',
             content: {},
             published: new Date(),
             users: [],
         }
-    }
-
-    componentDidMount() {
-        axios.get('http://localhost:3000/users/')
-            .then(response => {
-                if(response.data.length > 0) {
-                    this.setState({
-                        users: response.data.map(user => user.firstname + ' ' + user.lastname),
-                        author: response.data[0].firstname + ' ' + response.data[0].lastname
-                    })
-                }
-            })
     }
 
     onChangeInput(e) {
@@ -78,7 +65,6 @@ export default class CreatePost extends Component {
 
         const post = {
             title: this.state.title,
-            author: this.state.author,
             topics: this.state.topics,
             content: this.state.content,
             published: this.state.published,
@@ -94,7 +80,7 @@ export default class CreatePost extends Component {
     }
 
     render() {
-        const { title, author, topics, published } = this.state
+        const { title, topics, published } = this.state
         return (
             <div className="container" style={navSpace}>
                 <div className="col-12 col-lg-10 offset-lg-1">
@@ -110,25 +96,6 @@ export default class CreatePost extends Component {
                                 onChange={this.onChangeInput}
                                 onBlur={this.trimInput}
                             />
-                        </div>
-                        <div className="form-group">
-                            <label>Author:</label>
-                            <select
-                                ref="userInput"
-                                required
-                                className="form-control"
-                                name="author"
-                                value={author}
-                                onChange={this.onChangeInput}>
-                                    {
-                                        this.state.users.map(user => {
-                                            return <option
-                                                key={user}
-                                                value={user}>{user}
-                                            </option>
-                                        })
-                                    }
-                            </select>
                         </div>
                         <div className="form-group">
                             <label>Topics:</label>

@@ -7,10 +7,6 @@ const pubSchema = new Schema(
             type: String, 
             required: true 
         },
-        author: { 
-            type: String, 
-            required: true 
-        },
         topics: { 
                 type: [String],
         },
@@ -19,8 +15,7 @@ const pubSchema = new Schema(
             required: true 
         },
         published: { 
-            type: Date, 
-            required: true 
+            type: Date,
         },
         comments: { 
             type: [String] 

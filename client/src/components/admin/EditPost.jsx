@@ -9,11 +9,11 @@ export default class EditPost extends Component {
 
         this.onChangeInput = this.onChangeInput.bind(this)
         this.onChangePublished = this.onChangePublished.bind(this)
+        this.cleanInputArray = this.cleanInputArray.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
             title: '',
-            author: '',
             topics: '',
             content: '',
             published: new Date(),
@@ -22,11 +22,10 @@ export default class EditPost extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:3000/pubs/'+this.props.match.params.id)
+        axios.get('/pubs/'+this.props.match.params.id)
             .then(response => {
                 this.setState({
                     title: response.data.title,
-                    author: response.data.author,
                     topics: response.data.topics,
                     content: response.data.content,
                     published: new Date(response.data.published)
@@ -34,15 +33,6 @@ export default class EditPost extends Component {
             })
             .catch(err => {
                 console.log(err)
-            })
-
-        axios.get('http://localhost:3000/users/')
-            .then(response => {
-                if(response.data.length > 0) {
-                    this.setState({
-                        users: response.data.map(user => user.firstname + ' ' + user.lastname),
-                    })
-                }
             })
     }
 
@@ -60,12 +50,19 @@ export default class EditPost extends Component {
         })
     }
 
+    cleanInputArray(e) {
+        const name = e.target.name
+        const value = e.target.value
+        const arr = value.split(",").map(item => item.trim())
+        console.log(arr)
+        this.setState({ [name]: arr })
+    }
+
     onSubmit(e) {
         e.preventDefault()
         
         const post = {
             title: this.state.title,
-            author: this.state.author,
             topics: this.state.topics,
             content: this.state.content,
             published: this.state.published,
@@ -73,14 +70,14 @@ export default class EditPost extends Component {
 
         console.log(post)
 
-        axios.post('http://localhost:3000/pubs/update/'+this.props.match.params.id, post)
+        axios.post('/pubs/update/'+this.props.match.params.id, post)
             .then(res => console.log(res.data))
 
         window.location = '/admin/posts'
     }
 
     render() {
-        const { title, author, topics, content, published } = this.state
+        const { title, topics, content, published } = this.state
         return (
             <div className="container" style={navSpace}>
                 <h3 className='mb-3'>Edit Post</h3>
@@ -96,25 +93,6 @@ export default class EditPost extends Component {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Author:</label>
-                        <select
-                            ref="userInput"
-                            required
-                            className="form-control"
-                            name="author"
-                            value={author}
-                            onChange={this.onChangeInput}>
-                                {
-                                    this.state.users.map(user => {
-                                        return <option
-                                            key={user}
-                                            value={user}>{user}
-                                        </option>
-                                    })
-                                }
-                        </select>
-                    </div>
-                    <div className="form-group">
                         <label>Topics:</label>
                         <input
                             type="text"
@@ -122,6 +100,7 @@ export default class EditPost extends Component {
                             name="topics"
                             value={topics}
                             onChange={this.onChangeInput}
+                            onBlur={this.cleanInputArray}
                         />
                     </div>
                     <div className="form-group">

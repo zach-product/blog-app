@@ -9,7 +9,6 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
     const title = req.body.title
-    const author = req.body.author
     const topics = req.body.topics
     const content = req.body.content
     const published = Date.parse(req.body.published)
@@ -17,7 +16,6 @@ router.route('/add').post((req, res) => {
 
     const newPub = new Pub({
         title,
-        author,
         topics,
         content,
         published,
@@ -45,7 +43,6 @@ router.route('/update/:id').post((req, res) => {
     Pub.findById(req.params.id)
         .then(pub => {
             pub.title = req.body.title
-            pub.author = req.body.author
             pub.topics = req.body.topics
             pub.content = req.body.content
             pub.published = Date.parse(req.body.published)
