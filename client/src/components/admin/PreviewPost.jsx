@@ -13,7 +13,7 @@ export default class OnePost extends Component {
             title: '',
             topics: [],
             published: new Date(),
-            content: '', 
+            intro: '', 
         }
     }
 
@@ -24,7 +24,7 @@ export default class OnePost extends Component {
                     header_pic: response.data.header_pic,
                     title: response.data.title,
                     topics: response.data.topics,
-                    content: response.data.content,
+                    intro: response.data.intro,
                     published: new Date(response.data.published)
                 })
             })
@@ -34,7 +34,7 @@ export default class OnePost extends Component {
     }
 
     render() {
-        const { header_pic, title, topics, published, content } = this.state
+        const { header_pic, title, topics, published, intro } = this.state
         return (
             <React.Fragment>
                 <NavBarAdmin />
@@ -49,7 +49,7 @@ export default class OnePost extends Component {
                         })}
                         <p style={fontStyling} className="font-italic float-lg-right my-2">{moment(published).format("MMMM D, YYYY")}</p>
                         <hr className="mb-4" />
-                        <p style={fontStyling}>{content}</p>
+                        <p style={fontStyling}>{intro}</p>
                     </div>
                 </div>
             </React.Fragment>
