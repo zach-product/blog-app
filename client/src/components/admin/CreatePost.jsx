@@ -130,7 +130,7 @@ export default class CreatePost extends Component {
                             <label>Intro:</label>
                             <textarea
                                 type="text"
-                                rows="10"
+                                rows="5"
                                 className="form-control"
                                 name="intro"
                                 value={intro}
