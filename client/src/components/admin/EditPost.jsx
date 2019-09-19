@@ -9,6 +9,7 @@ export default class EditPost extends Component {
 
         this.onChangeInput = this.onChangeInput.bind(this)
         this.onChangePublished = this.onChangePublished.bind(this)
+        this.cleanInputArray = this.cleanInputArray.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
@@ -51,6 +52,14 @@ export default class EditPost extends Component {
         })
     }
 
+    cleanInputArray(e) {
+        const name = e.target.name
+        const value = e.target.value
+        const arr = value.split(",").map(item => item.trim())
+        console.log(arr)
+        this.setState({ [name]: arr })
+    }
+
     onSubmit(e) {
         e.preventDefault()
         
@@ -71,7 +80,7 @@ export default class EditPost extends Component {
     }
 
     render() {
-        const { header_img, title, topics, content, published } = this.state
+        const { title, topics, content, published } = this.state
         return (
             <div className="container" style={stickyHeader}>
                 <h3 className='mb-3'>Edit Post</h3>
@@ -104,6 +113,7 @@ export default class EditPost extends Component {
                             name="topics"
                             value={topics}
                             onChange={this.onChangeInput}
+                            onBlur={this.cleanInputArray}
                         />
                     </div>
                     <div className="form-group">

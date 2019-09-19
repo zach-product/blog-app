@@ -9,15 +9,15 @@ const pubSchema = new Schema(
             required: true,
             trim: true 
         },
-        topics: [{ type: String, trim: true }],
-        published: Date,
-        content: {
-            intro: String,
-            sections: [{
-                header: String,
-                body: String,
-            }],
-            closing: String,
+        topics: { 
+                type: [String],
+        },
+        content: { 
+            type: Object,
+            required: true 
+        },
+        published: { 
+            type: Date,
         },
         comments: [{
             author: { type: String, trim: true },

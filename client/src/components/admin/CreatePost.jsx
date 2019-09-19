@@ -81,7 +81,7 @@ export default class CreatePost extends Component {
     }
 
     render() {
-        const { header_img, title, topics, published } = this.state
+        const { title, topics, published } = this.state
         return (
             <div className="container" style={navSpace}>
                 <div className="col-12 col-lg-10 offset-lg-1">

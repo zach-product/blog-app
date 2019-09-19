@@ -27,8 +27,8 @@ export default class Posts extends Component {
 
     componentDidMount() {
         axios.get('/pubs')
-            .then(res => {
-                this.setState({ posts: res.data })
+            .then(response => {
+                this.setState({ posts: response.data })
             })
             .catch((err => {
                 console.log(err)
