@@ -13,6 +13,7 @@ export default class CreatePost extends Component {
         // this.onChangeContent = this.onChangeContent.bind(this)
         this.trimInput = this.trimInput.bind(this)
         this.cleanInputArray = this.cleanInputArray.bind(this)
+        this.addSect = this.addSect.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
@@ -21,6 +22,12 @@ export default class CreatePost extends Component {
             topics: '',
             published: new Date(),
             intro: '',
+            sections: [
+                {
+                    header: '',
+                    content: ''
+                }
+            ],
             closing: '',
         }
     }
@@ -28,9 +35,16 @@ export default class CreatePost extends Component {
     onChangeInput(e) {
         const name = e.target.name
         const value = e.target.value
-        this.setState({
-            [name]: value,
-        })
+
+        if(["header", "content"].includes(e.target.className)) {
+            let sections = [...this.state.sections]
+            sections[e.target.dataset.id][e.target.className] = e.target.value
+            this.setState({ sections }, () => console.log(this.state.sections))
+        } else {
+            this.setState({
+                [name]: value,
+            })
+        }
     }
 
     onChangePublished(date) {
@@ -53,6 +67,13 @@ export default class CreatePost extends Component {
         const trimmedStr= value.trim()
         console.log(trimmedStr)
         this.setState({ [name]: trimmedStr })
+    }
+
+    addSect(e) {
+        e.preventDefault()
+        this.setState(prevState => ({
+            sections: [...prevState.sections, { header: '', content: '' }],
+        }))
     }
 
     // onChangeContent(newContent) {
@@ -83,11 +104,11 @@ export default class CreatePost extends Component {
     }
 
     render() {
-        const { header_pic, title, topics, published, intro, closing } = this.state
+        const { header_pic, title, topics, published, intro, sections, closing } = this.state
         return (
             <div className="container" style={stickyHeader}>
                 <div className="col-12 col-lg-10 offset-lg-1">
-                    <h3 className='mb-3'>Create New Post</h3>
+                    <h2 className='mb-3'>Create New Post</h2>
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label>Header Image URL:</label>
@@ -140,6 +161,49 @@ export default class CreatePost extends Component {
                                 onChange={this.onChangeInput}
                             />
                         </div>
+
+                        <hr />
+
+                        <div className="d-inline align-middle my-2">
+                            <h3 className="mb-2">Sections</h3>
+                            <button onClick={this.addSect} className="btn btn-outline-primary btn-sm">Add New Section</button>
+                        </div>
+                    
+                        { sections.map((val, idx) => {
+                            let sectId = `sect-${idx}`, contId = `cont-${idx}`
+                            return (
+                                <div className="py-3" key={idx}>
+                                    <div className="form-group">
+                                        <label htmlFor={sectId}>{`Section #${idx + 1}`}</label>
+                                        <input
+                                            type="text"
+                                            name={sectId}
+                                            data-id={idx}
+                                            id={sectId}
+                                            className="header"
+                                            value={sections[idx].header}
+                                            onChange={this.onChangeInput}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor={contId}>Content</label>
+                                        <textarea
+                                            type="text"
+                                            rows="5"
+                                            name={contId}
+                                            data-id={idx}
+                                            id={contId}
+                                            className="content"
+                                            value={sections[idx].content}
+                                            onChange={this.onChangeInput}
+                                        />
+                                    </div>
+                                </div>
+                            )
+                        })}
+
+                        <hr />
+
                         <div className="form-group">
                             <label>Closing:</label>
                             <textarea

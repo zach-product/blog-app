@@ -18,6 +18,12 @@ export default class EditPost extends Component {
             topics: '',
             published: new Date(),
             intro: '', 
+            sections: [
+                { 
+                    header: '', 
+                    content: '' 
+                }
+            ],
             closing: '', 
         }
     }
@@ -31,7 +37,7 @@ export default class EditPost extends Component {
                     topics: response.data.topics,
                     published: new Date(response.data.published),
                     intro: response.data.intro,
-                    intro: response.data.closing,
+                    closing: response.data.closing,
                 })
             })
             .catch(err => {
@@ -82,7 +88,7 @@ export default class EditPost extends Component {
     }
 
     render() {
-        const { header_pic, title, topics, published, intro, closing } = this.state
+        const { header_pic, title, topics, published, intro, sections, closing } = this.state
         return (
             <div className="container" style={stickyHeader}>
                 <h3 className='mb-3'>Edit Post</h3>
@@ -137,7 +143,39 @@ export default class EditPost extends Component {
                             value={intro}
                             onChange={this.onChangeInput}
                         />
-                    </div>            
+                    </div>
+
+                    <button className="btn btn-outline-primary btn-sm">Add New Section</button>            
+                    
+                    { sections.map((val, idx) => {
+                        let sectId = `sect-${idx}`, contId = `cont-${idx}`
+                        return (
+                            <div key={idx}>
+                                <div className="form-group">
+                                    <label htmlFor={sectId}>{`Section #${idx + 1}`}</label>
+                                    <input
+                                        type="text"
+                                        name={sectId}
+                                        data-id={idx}
+                                        id={sectId}
+                                        className="header"
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor={contId}>Content</label>
+                                    <textarea
+                                        type="text"
+                                        rows="5"
+                                        name={contId}
+                                        data-id={idx}
+                                        id={contId}
+                                        className="content"
+                                    />
+                                </div>
+                            </div>
+                        )
+                    })}
+
                     <div className="form-group">
                         <label>Closing:</label>
                         <textarea
