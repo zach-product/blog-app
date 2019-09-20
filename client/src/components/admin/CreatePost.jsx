@@ -3,6 +3,7 @@ import axios from 'axios'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 import ContentEditor from './ContentEditor';
+import SectionInputs from './SectionInputs';
 
 export default class CreatePost extends Component {
     constructor(props) {
@@ -36,9 +37,9 @@ export default class CreatePost extends Component {
         const name = e.target.name
         const value = e.target.value
 
-        if(["header", "content"].includes(e.target.className)) {
+        if(["header", "content"].includes(e.target.title)) {
             let sections = [...this.state.sections]
-            sections[e.target.dataset.id][e.target.className] = e.target.value
+            sections[e.target.dataset.id][e.target.title] = e.target.value
             this.setState({ sections }, () => console.log(this.state.sections))
         } else {
             this.setState({
@@ -90,6 +91,7 @@ export default class CreatePost extends Component {
             title: this.state.title,
             topics: this.state.topics,
             published: this.state.published,
+            sections: this.state.sections,
             intro: this.state.intro,
             closing: this.state.closing,
         }
@@ -163,44 +165,10 @@ export default class CreatePost extends Component {
                         </div>
 
                         <hr />
-
-                        <div className="d-inline align-middle my-2">
-                            <h3 className="mb-2">Sections</h3>
-                            <button onClick={this.addSect} className="btn btn-outline-primary btn-sm">Add New Section</button>
-                        </div>
-                    
-                        { sections.map((val, idx) => {
-                            let sectId = `sect-${idx}`, contId = `cont-${idx}`
-                            return (
-                                <div className="py-3" key={idx}>
-                                    <div className="form-group">
-                                        <label htmlFor={sectId}>{`Section #${idx + 1}`}</label>
-                                        <input
-                                            type="text"
-                                            name={sectId}
-                                            data-id={idx}
-                                            id={sectId}
-                                            className="header"
-                                            value={sections[idx].header}
-                                            onChange={this.onChangeInput}
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor={contId}>Content</label>
-                                        <textarea
-                                            type="text"
-                                            rows="5"
-                                            name={contId}
-                                            data-id={idx}
-                                            id={contId}
-                                            className="content"
-                                            value={sections[idx].content}
-                                            onChange={this.onChangeInput}
-                                        />
-                                    </div>
-                                </div>
-                            )
-                        })}
+                        
+                        <h3 className="my-3">Sections</h3>
+                        <SectionInputs sections={sections} onChangeInput={this.onChangeInput} />
+                        <button onClick={this.addSect} className="btn btn-outline-primary btn-sm mb-2">Add New Section</button>
 
                         <hr />
 
