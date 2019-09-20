@@ -18,6 +18,16 @@ const pubSchema = new Schema(
         intro: { 
             type: String,
         },
+        sections: [
+            {
+                header: {
+                    type: String,
+                },
+                content: {
+                    type: String,
+                },
+            }
+        ],
         closing: { 
             type: String,
         },
