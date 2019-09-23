@@ -8,7 +8,6 @@ export class Admin extends Component {
         return (
             <Router>
                 <NavBarAdmin />
-                <br/>
                 <Switch>
                     <Route path="/admin/posts" exact component={Posts} />
                     <Route path="/admin/drafts" exact component={Drafts} />

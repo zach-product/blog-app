@@ -16,6 +16,7 @@ router.route('/drafts').get((req, res) => {
 })
 
 router.route('/add').post((req, res) => {
+    const postId = req.body.postId
     const header_pic = req.body.header_pic
     const title = req.body.title
     const topics = req.body.topics
@@ -25,6 +26,7 @@ router.route('/add').post((req, res) => {
     const comments = req.body.comments
 
     const newPub = new Pub({
+        postId,
         header_pic,
         title,
         topics,
@@ -54,6 +56,7 @@ router.route('/:id').delete((req, res) => {
 router.route('/update/:id').post((req, res) => {
     Pub.findById(req.params.id)
         .then(pub => {
+            pub.postId = req.body.postId
             pub.header_pic = req.body.header_pic
             pub.title = req.body.title
             pub.topics = req.body.topics
@@ -72,6 +75,7 @@ router.route('/update/:id').post((req, res) => {
 router.route('/publish/:id').post((req, res) => {
     Pub.findById(req.params.id)
         .then(pub => {
+            pub.postId = req.body.postId
             pub.header_pic = req.body.header_pic
             pub.title = req.body.title
             pub.topics = req.body.topics

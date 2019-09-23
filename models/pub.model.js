@@ -3,7 +3,15 @@ const Schema = mongoose.Schema
 
 const pubSchema = new Schema(
     {
-        header_pic: { type: String, trim: true },
+        postId: { 
+            type: String, 
+            trim: true, 
+            unique: true
+        },
+        header_pic: { 
+            type: String, 
+            trim: true 
+        },
         title: { 
             type: String, 
             required: true,

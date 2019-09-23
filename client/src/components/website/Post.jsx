@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import moment from 'moment'
-import { NavBarAdmin } from '..'
+import { NavBar } from '..'
 import './../../App.css'
 
-export default class PreviewPost extends Component {
+export default class Post extends Component {
     constructor(props) {
         super(props)
 
@@ -46,7 +46,7 @@ export default class PreviewPost extends Component {
         const { header_pic, title, topics, published, intro, sections, closing } = this.state
         return (
             <React.Fragment>
-                <NavBarAdmin />
+                <NavBar />
                 <div className="container" style={stickyHeader}>
                     <div className="col-12 col-lg-10 offset-lg-1 py-3 py-lg-2">
                         <div style={imgContainer}>

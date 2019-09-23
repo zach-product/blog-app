@@ -8,10 +8,12 @@ export default class CreatePost extends Component {
 
         this.onChangeInput = this.onChangeInput.bind(this)
         this.cleanInputArray = this.cleanInputArray.bind(this)
+        this.titleToPostId = this.titleToPostId.bind(this)
         this.addSect = this.addSect.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
+            postId: '',
             header_pic: '',
             title: '',
             topics: '',
@@ -41,6 +43,13 @@ export default class CreatePost extends Component {
         }
     }
 
+    titleToPostId(title) {
+        const trimmed = title.trim()
+        const replaced = trimmed.split(' ').join('-')
+        const lowercase = replaced.toLowerCase()
+        return lowercase
+    }
+
     cleanInputArray(e) {
         const name = e.target.name
         const value = e.target.value
@@ -60,6 +69,7 @@ export default class CreatePost extends Component {
         e.preventDefault()
        
         const post = {
+            postId: this.titleToPostId(this.state.title),
             header_pic: this.state.header_pic,
             title: this.state.title,
             topics: this.state.topics,
