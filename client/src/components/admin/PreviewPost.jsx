@@ -53,16 +53,16 @@ export default class PreviewPost extends Component {
                             <img style={aboutImg} className="rounded" src={header_pic} alt={header_pic} />
                         </div>
                         <h1 className="my-4">{title}</h1>
-                        {topics.map(topic => {
-                            return <p className='btn btn-secondary btn-sm disabled mr-2 mb-2'>{topic}</p>
+                        {topics.map((topic, index) => {
+                            return <p key={index} className='btn btn-secondary btn-sm disabled mr-2 mb-2'>{topic}</p>
                         })}
                         <p style={fontStyling} className="font-italic float-lg-right my-2">{ published === undefined ? <i>Draft</i> : moment(published).format("MMMM D, YYYY") }</p>
                         <hr className="mb-4" />
                         <p style={fontStyling}>{intro}</p>
-                        {sections.map(section => {
+                        {sections.map((section, index) => {
                             return  <React.Fragment>
-                                        <h3 className="my-4">{section.header}</h3>
-                                        <p style={fontStyling}>{section.content}</p>
+                                        <h3 key={index} className="my-4">{section.header}</h3>
+                                        <p key={index} style={fontStyling}>{section.content}</p>
                                     </React.Fragment>
                         })}
                         <br />

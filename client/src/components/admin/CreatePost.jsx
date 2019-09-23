@@ -7,7 +7,6 @@ export default class CreatePost extends Component {
         super(props)
 
         this.onChangeInput = this.onChangeInput.bind(this)
-        this.trimInput = this.trimInput.bind(this)
         this.cleanInputArray = this.cleanInputArray.bind(this)
         this.addSect = this.addSect.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
@@ -48,14 +47,6 @@ export default class CreatePost extends Component {
         const arr = value.split(",").map(item => item.trim())
         console.log(arr)
         this.setState({ [name]: arr })
-    }
-
-    trimInput(e) {
-        const name = e.target.name
-        const value = e.target.value
-        const trimmedStr= value.trim()
-        console.log(trimmedStr)
-        this.setState({ [name]: trimmedStr })
     }
 
     addSect(e) {
