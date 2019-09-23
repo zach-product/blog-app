@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css"
-import ContentEditor from './ContentEditor';
 import SectionInputs from './SectionInputs';
 
 export default class CreatePost extends Component {
@@ -10,8 +7,6 @@ export default class CreatePost extends Component {
         super(props)
 
         this.onChangeInput = this.onChangeInput.bind(this)
-        this.onChangePublished = this.onChangePublished.bind(this)
-        // this.onChangeContent = this.onChangeContent.bind(this)
         this.trimInput = this.trimInput.bind(this)
         this.cleanInputArray = this.cleanInputArray.bind(this)
         this.addSect = this.addSect.bind(this)
@@ -21,7 +16,6 @@ export default class CreatePost extends Component {
             header_pic: '',
             title: '',
             topics: '',
-            published: new Date(),
             intro: '',
             sections: [
                 {
@@ -48,12 +42,6 @@ export default class CreatePost extends Component {
         }
     }
 
-    onChangePublished(date) {
-        this.setState({
-            published: date
-        })
-    }
-
     cleanInputArray(e) {
         const name = e.target.name
         const value = e.target.value
@@ -77,24 +65,17 @@ export default class CreatePost extends Component {
         }))
     }
 
-    // onChangeContent(newContent) {
-    //     this.setState({
-    //         content: newContent
-    //     })
-    // }
-
     onSubmit(e) {
         e.preventDefault()
-
+       
         const post = {
             header_pic: this.state.header_pic,
             title: this.state.title,
             topics: this.state.topics,
-            published: this.state.published,
             sections: this.state.sections,
             intro: this.state.intro,
             closing: this.state.closing,
-        }
+        } 
 
         console.log(post)
 
@@ -102,11 +83,11 @@ export default class CreatePost extends Component {
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
 
-        window.location = '/admin/posts'
+        window.location = '/admin/drafts'
     }
 
     render() {
-        const { header_pic, title, topics, published, intro, sections, closing } = this.state
+        const { header_pic, title, topics, intro, sections, closing } = this.state
         return (
             <div className="container" style={stickyHeader}>
                 <div className="col-12 col-lg-10 offset-lg-1">
@@ -144,15 +125,6 @@ export default class CreatePost extends Component {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Published:</label>
-                            <div>
-                                <DatePicker
-                                    selected={published}
-                                    onChange={this.onChangePublished} 
-                                />
-                            </div>
-                        </div>
-                        <div className="form-group">
                             <label>Intro:</label>
                             <textarea
                                 type="text"
@@ -183,16 +155,10 @@ export default class CreatePost extends Component {
                                 onChange={this.onChangeInput}
                             />
                         </div>
-                        {/* <div className="form-group">
-                            <label>Content: </label>
-                            <ContentEditor
-                                onChangeContent={this.onChangeContent}
-                            />
-                        </div> */}
                         <div className="form-group">
                             <input
                                 type="submit"
-                                className="btn btn-primary"
+                                className="btn btn-primary mr-2"
                                 value="Create New Post"
                             />
                         </div>

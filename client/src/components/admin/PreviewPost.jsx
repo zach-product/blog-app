@@ -4,7 +4,7 @@ import moment from 'moment'
 import { NavBarAdmin } from '..'
 import './../../App.css'
 
-export default class OnePost extends Component {
+export default class PreviewPost extends Component {
     constructor(props) {
         super(props)
 
@@ -12,8 +12,14 @@ export default class OnePost extends Component {
             header_pic: '',
             title: '',
             topics: [],
-            published: new Date(),
+            published: '',
             intro: '', 
+            sections: [
+                {
+                    header: '',
+                    content: '',
+                }
+            ],
             closing: '', 
         }
     }
@@ -25,8 +31,9 @@ export default class OnePost extends Component {
                     header_pic: response.data.header_pic,
                     title: response.data.title,
                     topics: response.data.topics,
-                    published: new Date(response.data.published),
+                    published: response.data.published,
                     intro: response.data.intro,
+                    sections: response.data.sections,
                     closing: response.data.closing,            
                 })
             })
@@ -36,7 +43,7 @@ export default class OnePost extends Component {
     }
 
     render() {
-        const { header_pic, title, topics, published, intro, closing } = this.state
+        const { header_pic, title, topics, published, intro, sections, closing } = this.state
         return (
             <React.Fragment>
                 <NavBarAdmin />
@@ -46,12 +53,19 @@ export default class OnePost extends Component {
                             <img style={aboutImg} className="rounded" src={header_pic} alt={header_pic} />
                         </div>
                         <h1 className="my-4">{title}</h1>
-                        {topics.map(item => {
-                            return <p className='btn btn-secondary btn-sm disabled mr-2 mb-2'>{item}</p>
+                        {topics.map(topic => {
+                            return <p className='btn btn-secondary btn-sm disabled mr-2 mb-2'>{topic}</p>
                         })}
-                        <p style={fontStyling} className="font-italic float-lg-right my-2">{moment(published).format("MMMM D, YYYY")}</p>
+                        <p style={fontStyling} className="font-italic float-lg-right my-2">{ published === undefined ? <i>Draft</i> : moment(published).format("MMMM D, YYYY") }</p>
                         <hr className="mb-4" />
                         <p style={fontStyling}>{intro}</p>
+                        {sections.map(section => {
+                            return  <React.Fragment>
+                                        <h3 className="my-4">{section.header}</h3>
+                                        <p style={fontStyling}>{section.content}</p>
+                                    </React.Fragment>
+                        })}
+                        <br />
                         <p style={fontStyling}>{closing}</p>
                     </div>
                 </div>

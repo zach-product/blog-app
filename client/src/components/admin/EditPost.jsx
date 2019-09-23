@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
+import SectionInputs from './SectionInputs'
 
 export default class EditPost extends Component {
     constructor(props) {
@@ -10,13 +10,14 @@ export default class EditPost extends Component {
         this.onChangeInput = this.onChangeInput.bind(this)
         this.onChangePublished = this.onChangePublished.bind(this)
         this.cleanInputArray = this.cleanInputArray.bind(this)
+        this.addSect = this.addSect.bind(this)
+        this.publishPost = this.publishPost.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
             header_pic: '',
             title: '',
             topics: '',
-            published: new Date(),
             intro: '', 
             sections: [
                 { 
@@ -35,8 +36,8 @@ export default class EditPost extends Component {
                     header_pic: response.data.header_pic,
                     title: response.data.title,
                     topics: response.data.topics,
-                    published: new Date(response.data.published),
                     intro: response.data.intro,
+                    sections: response.data.sections,
                     closing: response.data.closing,
                 })
             })
@@ -48,9 +49,16 @@ export default class EditPost extends Component {
     onChangeInput(e) {
         const name = e.target.name
         const value = e.target.value
-        this.setState({
-            [name]: value,
-        })
+
+        if(["header", "content"].includes(e.target.title)) {
+            let sections = [...this.state.sections]
+            sections[e.target.dataset.id][e.target.title] = e.target.value
+            this.setState({ sections }, () => console.log(this.state.sections))
+        } else {
+            this.setState({
+                [name]: value,
+            })
+        }
     }
 
     onChangePublished(date) {
@@ -67,15 +75,45 @@ export default class EditPost extends Component {
         this.setState({ [name]: arr })
     }
 
-    onSubmit(e) {
+    addSect(e) {
         e.preventDefault()
-        
+        this.setState(prevState => ({
+            sections: [...prevState.sections, { header: '', content: '' }],
+        }))
+    }
+
+    publishPost(e) {
+        e.preventDefault()
+
         const post = {
             header_pic: this.state.header_pic,
             title: this.state.title,
             topics: this.state.topics,
-            published: this.state.published,
+            published: new Date(),
             intro: this.state.intro,
+            sections: this.state.sections,
+            closing: this.state.closing,
+        }
+
+        console.log(post)
+
+        axios.post('/pubs/publish/'+this.props.match.params.id, post)
+            .then(res => console.log(res.data))
+
+        window.location = '/admin/posts'
+    }
+
+    
+
+    onSubmit(e) {
+        e.preventDefault()
+
+        const post = {
+            header_pic: this.state.header_pic,
+            title: this.state.title,
+            topics: this.state.topics,
+            intro: this.state.intro,
+            sections: this.state.sections,
             closing: this.state.closing,
         }
 
@@ -84,15 +122,15 @@ export default class EditPost extends Component {
         axios.post('/pubs/update/'+this.props.match.params.id, post)
             .then(res => console.log(res.data))
 
-        window.location = '/admin/posts'
+        window.location = '/admin/drafts'
     }
 
     render() {
-        const { header_pic, title, topics, published, intro, sections, closing } = this.state
+        const { header_pic, title, topics, intro, sections, closing } = this.state
         return (
             <div className="container" style={stickyHeader}>
                 <h3 className='mb-3'>Edit Post</h3>
-                <form onSubmit={this.onSubmit}>
+                <form>
                     <div className="form-group">
                         <label>Header Image URL:</label>
                         <input
@@ -124,15 +162,7 @@ export default class EditPost extends Component {
                             onBlur={this.cleanInputArray}
                         />
                     </div>
-                    <div className="form-group">
-                        <label>Published:</label>
-                        <div>
-                            <DatePicker
-                                selected={published}
-                                onChange={this.onChangePublished} 
-                            />
-                        </div>
-                    </div>
+
                     <div className="form-group">
                         <label>Intro:</label>
                         <textarea
@@ -145,36 +175,13 @@ export default class EditPost extends Component {
                         />
                     </div>
 
-                    <button className="btn btn-outline-primary btn-sm">Add New Section</button>            
-                    
-                    { sections.map((val, idx) => {
-                        let sectId = `sect-${idx}`, contId = `cont-${idx}`
-                        return (
-                            <div key={idx}>
-                                <div className="form-group">
-                                    <label htmlFor={sectId}>{`Section #${idx + 1}`}</label>
-                                    <input
-                                        type="text"
-                                        name={sectId}
-                                        data-id={idx}
-                                        id={sectId}
-                                        className="header"
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor={contId}>Content</label>
-                                    <textarea
-                                        type="text"
-                                        rows="5"
-                                        name={contId}
-                                        data-id={idx}
-                                        id={contId}
-                                        className="content"
-                                    />
-                                </div>
-                            </div>
-                        )
-                    })}
+                    <hr />
+                        
+                    <h3 className="my-3">Sections</h3>
+                    <SectionInputs sections={sections} onChangeInput={this.onChangeInput} />
+                    <button onClick={this.addSect} className="btn btn-outline-primary btn-sm mb-2">Add New Section</button>
+
+                    <hr />
 
                     <div className="form-group">
                         <label>Closing:</label>
@@ -190,8 +197,15 @@ export default class EditPost extends Component {
                     <div className="form-group">
                         <input
                             type="submit"
-                            className="btn btn-primary"
+                            className="btn btn-primary mr-2"
                             value="Save Changes"
+                            onClick={this.onSubmit}
+                        />
+                        <input
+                            type="submit"
+                            className="btn btn-success"
+                            value="Publish Post"
+                            onClick={this.publishPost}
                         />
                     </div>
                 </form>

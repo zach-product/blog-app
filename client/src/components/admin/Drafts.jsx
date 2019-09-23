@@ -16,7 +16,7 @@ const Post = props => (
         <td className="align-middle">
             <Link className="btn btn-secondary" to={"/admin/edit/"+props.post._id}><i className="fa fa-edit m-2"></i></Link>
             <Link className="btn btn-success ml-2" to={"/admin/preview/"+props.post._id}><i className="fa fa-eye m-2"></i></Link>
-            <Link to="/admin/posts" className="btn btn-danger ml-2" onClick={() => { props.deletePost(props.post._id)}}><i className="fa fa-trash m-2"></i></Link>
+            <Link to="/admin/drafts" className="btn btn-danger ml-2" onClick={() => { props.deletePost(props.post._id)}}><i className="fa fa-trash m-2"></i></Link>
         </td>
     </tr>
 )
@@ -33,7 +33,7 @@ export default class Posts extends Component {
     }
 
     componentDidMount() {
-        axios.get('/pubs')
+        axios.get('/pubs/drafts')
             .then(response => {
                 this.setState({ posts: response.data })
             })
@@ -61,7 +61,7 @@ export default class Posts extends Component {
         return (
             <div className="container" style={stickyHeader}>
                 <div className="d-inline align-middle">
-                    <h3 className="float-left ml-2 mb-3">Posts</h3>
+                    <h3 className="float-left ml-2 mb-3">Drafts</h3>
                 </div>
                 <table className="table table-fixed" >
                     <thead>

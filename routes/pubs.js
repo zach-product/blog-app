@@ -2,7 +2,15 @@ const router = require('express').Router()
 const Pub = require('../models/pub.model')
 
 router.route('/').get((req, res) => {
-    Pub.find()
+    Pub.find( { published: { $exists: true } } )
+        .sort({ published: -1 })
+        .then(pubs => res.json(pubs))
+        .catch(err => res.status(400).json('Error: ' + err))
+})
+
+router.route('/drafts').get((req, res) => {
+    Pub.find( { published: undefined } )
+        .sort({ published: -1 })
         .then(pubs => res.json(pubs))
         .catch(err => res.status(400).json('Error: ' + err))
 })
@@ -11,7 +19,6 @@ router.route('/add').post((req, res) => {
     const header_pic = req.body.header_pic
     const title = req.body.title
     const topics = req.body.topics
-    const published = Date.parse(req.body.published)
     const intro = req.body.intro
     const sections = req.body.sections
     const closing = req.body.closing
@@ -21,7 +28,6 @@ router.route('/add').post((req, res) => {
         header_pic,
         title,
         topics,
-        published,
         intro,
         sections,
         closing,
@@ -51,7 +57,6 @@ router.route('/update/:id').post((req, res) => {
             pub.header_pic = req.body.header_pic
             pub.title = req.body.title
             pub.topics = req.body.topics
-            pub.published = Date.parse(req.body.published)
             pub.intro = req.body.intro
             pub.sections = req.body.sections
             pub.closing = req.body.closing
@@ -59,6 +64,25 @@ router.route('/update/:id').post((req, res) => {
             
             pub.save()
                 .then(() => res.json('Post succesfully updated!'))
+                .catch(err => res.status(400).json('Error: ' + err))
+        })
+        .catch(err => res.status(400).json('Error: ' + err))
+})
+
+router.route('/publish/:id').post((req, res) => {
+    Pub.findById(req.params.id)
+        .then(pub => {
+            pub.header_pic = req.body.header_pic
+            pub.title = req.body.title
+            pub.topics = req.body.topics
+            pub.published = Date.parse(req.body.published)
+            pub.intro = req.body.intro
+            pub.sections = req.body.sections
+            pub.closing = req.body.closing
+            pub.comments = req.body.comments
+            
+            pub.save()
+                .then(() => res.json('Post succesfully published!'))
                 .catch(err => res.status(400).json('Error: ' + err))
         })
         .catch(err => res.status(400).json('Error: ' + err))
