@@ -44,13 +44,13 @@ router.route('/add').post((req, res) => {
 router.route('/:id').get((req, res) => {
     Pub.findById(req.params.id)
         .then(pub => res.json(pub))
-        .catch(err => req.status(400).json('Error :' + err))
+        .catch(err => res.status(400).json('Error :' + err))
 })
 
 router.route('/:id').delete((req, res) => {
     Pub.findByIdAndDelete(req.params.id)
         .then(() => res.json('Post successfully deleted!'))
-        .catch(err => req.status(400).json('Error :' + err))
+        .catch(err => res.status(400).json('Error :' + err))
 })
 
 router.route('/update/:id').post((req, res) => {
