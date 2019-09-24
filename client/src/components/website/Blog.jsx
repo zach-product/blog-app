@@ -5,7 +5,7 @@ import moment from 'moment'
 import TextTruncate from 'react-text-truncate'
 import { NavBar } from '..';
 import './../../App.css'
-import backtowork from './../../assets/backtowork.jpg'
+// import backtowork from './../../assets/backtowork.jpg'
 
 const Blog = props => (
     <React.Fragment>

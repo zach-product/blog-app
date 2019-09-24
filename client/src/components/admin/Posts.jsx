@@ -12,7 +12,7 @@ const Post = props => (
             return <p key={index} className='btn btn-secondary btn-sm disabled mr-1 mb-1'>{topic}</p>
         })}
         </td>
-        <td className="align-middle">{ props.post.published === undefined ? <i>Draft</i> : moment(props.post.published).format("MM/DD/YY") } </td>
+        <td className="align-middle">{ props.post.published === undefined || null ? <i>Draft</i> : moment(props.post.published).format("MM/DD/YY") } </td>
         <td className="align-middle">
             <Link className="btn btn-secondary" to={"/admin/edit/"+props.post._id}><i className="fa fa-edit m-2"></i></Link>
             <Link className="btn btn-success ml-2" to={"/admin/preview/"+props.post._id}><i className="fa fa-eye m-2"></i></Link>
