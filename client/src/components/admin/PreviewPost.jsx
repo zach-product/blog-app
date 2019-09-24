@@ -9,7 +9,8 @@ export default class PreviewPost extends Component {
         super(props)
 
         this.state = {
-            header_pic: '',
+            mainImgName: '',
+            mainImgPath: '',
             title: '',
             topics: [],
             published: '',
@@ -28,7 +29,8 @@ export default class PreviewPost extends Component {
         axios.get('/pubs/'+this.props.match.params.id)
             .then(response => {
                 this.setState({ 
-                    header_pic: response.data.header_pic,
+                    mainImgName: response.data.mainImgName,
+                    mainImgPath: response.data.mainImgPath,
                     title: response.data.title,
                     topics: response.data.topics,
                     published: response.data.published,
@@ -43,14 +45,14 @@ export default class PreviewPost extends Component {
     }
 
     render() {
-        const { header_pic, title, topics, published, intro, sections, closing } = this.state
+        const { mainImgName, mainImgPath, title, topics, published, intro, sections, closing } = this.state
         return (
             <React.Fragment>
                 <NavBarAdmin />
                 <div className="container" style={stickyHeader}>
                     <div className="col-12 col-lg-10 offset-lg-1 py-3 py-lg-2">
                         <div style={imgContainer}>
-                            <img style={aboutImg} className="rounded" src={header_pic} alt={header_pic} />
+                            <img style={aboutImg} className="rounded" src={mainImgPath} alt={mainImgName} />
                         </div>
                         <h1 className="my-4">{title}</h1>
                         {topics.map((topic, index) => {

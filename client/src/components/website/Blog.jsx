@@ -5,13 +5,12 @@ import moment from 'moment'
 import TextTruncate from 'react-text-truncate'
 import { NavBar } from '..';
 import './../../App.css'
-// import backtowork from './../../assets/backtowork.jpg'
 
 const Blog = props => (
     <React.Fragment>
         <div className="row py-3">
             <div className="col-12 col-lg-4" style={imgContainer}>
-                <img style={aboutImg} className="rounded img-mobile" src={props.post.header_pic} alt={props.post.header_pic} />
+                <img style={aboutImg} className="rounded img-mobile" src={props.post.mainImgPath} alt={props.post.mainImgName} />
             </div>
             <div className="col-12 col-lg-8">
                 <Link to={"/blog/"+props.post._id}><h2 className="mb-4 pt-3 pt-lg-0">{props.post.title}</h2></Link>

@@ -5,7 +5,7 @@ import moment from 'moment'
 
 const Post = props => (
     <tr>
-        <td className="align-middle"><img className="thumbnail" src={props.post.header_pic} alt="" /></td>
+        <td className="align-middle"><img className="thumbnail" src={props.post.mainImgPath} alt={props.post.mainImgName} style={tableImg} /></td>
         <td className="align-middle">{props.post.title}</td>
         <td className="align-middle">
         {props.post.topics.map((topic, index) => {
@@ -84,4 +84,10 @@ export default class Posts extends Component {
 
 const stickyHeader = {
     marginTop: "calc(70px + 3%)"
+}
+
+const tableImg = {
+    display: "block",
+    height: "auto",
+    width: "100%"
 }

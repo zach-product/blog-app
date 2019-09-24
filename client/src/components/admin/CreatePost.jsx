@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import SectionInputs from './SectionInputs';
-import DefaultImg from './../../assets/default-img.jpeg'
+import DefaultImg from './../../assets/default-img.jpg'
 
 export default class CreatePost extends Component {
     constructor(props) {
@@ -15,8 +15,10 @@ export default class CreatePost extends Component {
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
+            imgPreview: DefaultImg,
             postId: '',
-            headerImage: DefaultImg,
+            mainImgName: '',
+            mainImgPath: '',            
             title: '',
             topics: '',
             intro: '',
@@ -32,25 +34,27 @@ export default class CreatePost extends Component {
 
     setDefaultImage() {
         this.setState({
-            headerImage: DefaultImg
+            imgPreview: DefaultImg
         })
     }
 
     uploadImage(e) {
         let imageFormObj = new FormData()
 
-        imageFormObj.append('imageName', 'multer-image-' + Date.now())
+        imageFormObj.append('imageName',  e.target.files[0].name)
         imageFormObj.append('imageData', e.target.files[0])
 
         this.setState({
-            headerImage: URL.createObjectURL(e.target.files[0])
+            imgPreview: URL.createObjectURL(e.target.files[0]),
+            mainImgName: e.target.files[0].name,
+            mainImgPath: "./../../../../uploads/" + e.target.files[0].name
         })
 
-        axios.post('/image/uploadmulter', imageFormObj)
+        axios.post('/image/upload', imageFormObj)
             .then((data) => {
                 if (data.data.success) {
                     alert('Image has been successfully uploaded!')
-                    this.setDefaultImage()
+                    // this.setDefaultImage()
                 }
             })
             .catch((err) => {
@@ -102,7 +106,8 @@ export default class CreatePost extends Component {
        
         const post = {
             postId: this.titleToPostId(this.state.title),
-            header_pic: this.state.header_pic,
+            mainImgName: this.state.mainImgName,
+            mainImgPath: this.state.mainImgPath,
             title: this.state.title,
             topics: this.state.topics,
             sections: this.state.sections,
@@ -120,27 +125,14 @@ export default class CreatePost extends Component {
     }
 
     render() {
-        const { header_pic, title, topics, intro, sections, closing } = this.state
+        const { imgPreview, title, topics, intro, sections, closing } = this.state
         return (
             <div className="container" style={stickyHeader}>
                 <div className="col-12 col-lg-10 offset-lg-1">
                     <h2 className='mb-3'>Create New Post</h2>
                     <form onSubmit={this.onSubmit}>
-                        <div className="form-group">
-                            <input type="file" className="btn" onChange={this.uploadImage} />
-                            <img src={this.state.headerImage} alt='upload-image' className="thumbnail" />
-                        </div>
-                        
-                        <div className="form-group">
-                            <label>Header Image URL:</label>
-                            <input
-                                type="url"
-                                className="form-control"
-                                name="header_pic"
-                                value={header_pic}
-                                onChange={this.onChangeInput}
-                            />
-                        </div>
+                        <img src={imgPreview} alt='upload-image' className="thumbnail mb-3" style={previewImg} />
+                        <input type="file" className="btn" onChange={this.uploadImage} />
                         <div className="form-group">
                             <label>Title:</label>
                             <input
@@ -209,4 +201,9 @@ export default class CreatePost extends Component {
 
 const stickyHeader = {
     marginTop: "calc(70px + 3%)"
+}
+
+const previewImg = {
+    maxHeight: "200px",
+    width: "auto"
 }

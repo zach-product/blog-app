@@ -8,7 +8,11 @@ const pubSchema = new Schema(
             trim: true, 
             unique: true
         },
-        header_pic: { 
+        mainImgName: { 
+            type: String, 
+            trim: true 
+        },
+        mainImgPath: { 
             type: String, 
             trim: true 
         },

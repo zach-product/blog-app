@@ -17,7 +17,8 @@ router.route('/drafts').get((req, res) => {
 
 router.route('/add').post((req, res) => {
     const postId = req.body.postId
-    const header_pic = req.body.header_pic
+    const mainImgName = req.body.mainImgName
+    const mainImgPath = req.body.mainImgPath
     const title = req.body.title
     const topics = req.body.topics
     const intro = req.body.intro
@@ -27,7 +28,8 @@ router.route('/add').post((req, res) => {
 
     const newPub = new Pub({
         postId,
-        header_pic,
+        mainImgName,
+        mainImgPath,
         title,
         topics,
         intro,
@@ -57,7 +59,8 @@ router.route('/update/:id').post((req, res) => {
     Pub.findById(req.params.id)
         .then(pub => {
             pub.postId = req.body.postId
-            pub.header_pic = req.body.header_pic
+            pub.mainImgName = req.body.mainImgName
+            pub.mainImgPath = req.body.mainImgPath
             pub.title = req.body.title
             pub.topics = req.body.topics
             pub.intro = req.body.intro
@@ -76,7 +79,8 @@ router.route('/publish/:id').post((req, res) => {
     Pub.findById(req.params.id)
         .then(pub => {
             pub.postId = req.body.postId
-            pub.header_pic = req.body.header_pic
+            pub.mainImgName = req.body.mainImgName
+            pub.mainImgPath = req.body.mainImgPath
             pub.title = req.body.title
             pub.topics = req.body.topics
             pub.published = Date.parse(req.body.published)

@@ -29,10 +29,12 @@ db.once('open', () => {
 
 const pubsRouter = require('./routes/pubs')
 const usersRouter = require('./routes/users')
+const imageRouter = require('./routes/image')
 
 app.use('/pubs', pubsRouter)
 app.use('/users', usersRouter)
 app.use('/api/mail', sendMail)
+app.use('/image', imageRouter)
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"))
