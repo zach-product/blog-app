@@ -171,5 +171,5 @@ export default class CreatePost extends Component {
 }
 
 const stickyHeader = {
-    marginTop: "calc(30px + 3%)"
+    marginTop: "calc(70px + 3%)"
 }
