@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import SectionInputs from './SectionInputs';
+import DefaultImg from './../../assets/default-img.jpeg'
 
 export default class CreatePost extends Component {
     constructor(props) {
         super(props)
 
+        this.uploadImage = this.uploadImage.bind(this)
         this.onChangeInput = this.onChangeInput.bind(this)
         this.cleanInputArray = this.cleanInputArray.bind(this)
         this.titleToPostId = this.titleToPostId.bind(this)
@@ -14,7 +16,7 @@ export default class CreatePost extends Component {
 
         this.state = {
             postId: '',
-            header_pic: '',
+            headerImage: DefaultImg,
             title: '',
             topics: '',
             intro: '',
@@ -26,6 +28,36 @@ export default class CreatePost extends Component {
             ],
             closing: '',
         }
+    }
+
+    setDefaultImage() {
+        this.setState({
+            headerImage: DefaultImg
+        })
+    }
+
+    uploadImage(e) {
+        let imageFormObj = new FormData()
+
+        imageFormObj.append('imageName', 'multer-image-' + Date.now())
+        imageFormObj.append('imageData', e.target.files[0])
+
+        this.setState({
+            headerImage: URL.createObjectURL(e.target.files[0])
+        })
+
+        axios.post('/image/uploadmulter', imageFormObj)
+            .then((data) => {
+                if (data.data.success) {
+                    alert('Image has been successfully uploaded!')
+                    this.setDefaultImage()
+                }
+            })
+            .catch((err) => {
+                alert('Error while uploading image')
+                this.setDefaultImage()
+            })
+
     }
 
     onChangeInput(e) {
@@ -94,6 +126,11 @@ export default class CreatePost extends Component {
                 <div className="col-12 col-lg-10 offset-lg-1">
                     <h2 className='mb-3'>Create New Post</h2>
                     <form onSubmit={this.onSubmit}>
+                        <div className="form-group">
+                            <input type="file" className="btn" onChange={this.uploadImage} />
+                            <img src={this.state.headerImage} alt='upload-image' className="thumbnail" />
+                        </div>
+                        
                         <div className="form-group">
                             <label>Header Image URL:</label>
                             <input
