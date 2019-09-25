@@ -88,6 +88,8 @@ const stickyHeader = {
 
 const tableImg = {
     display: "block",
-    height: "auto",
-    width: "100%"
+    height: "60px",
+    width: "100%",
+    objectFit: "cover",
+    objectPosition: "-50% 50",
 }

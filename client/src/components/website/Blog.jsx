@@ -10,7 +10,7 @@ const Blog = props => (
     <React.Fragment>
         <div className="row py-3">
             <div className="col-12 col-lg-4" style={imgContainer}>
-                <img style={aboutImg} className="rounded img-mobile" src={props.post.mainImgPath} alt={props.post.mainImgName} />
+                <img style={mainImgPreview} className="rounded img-mobile" src={props.post.mainImgPath} alt={props.post.mainImgName} />
             </div>
             <div className="col-12 col-lg-8">
                 <Link to={"/blog/"+props.post._id}><h2 className="mb-4 pt-3 pt-lg-0">{props.post.title}</h2></Link>
@@ -89,8 +89,8 @@ const imgContainer = {
     display: "flex",
 }
 
-const aboutImg  = {
-    height: "100%",
+const mainImgPreview = {
+    height: "200px",
     width: "100%",
     objectFit: "cover",
     objectPosition: "-50% 50"

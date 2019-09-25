@@ -53,8 +53,7 @@ export default class CreatePost extends Component {
         axios.post('/image/upload', imageFormObj)
             .then((data) => {
                 if (data.data.success) {
-                    alert('Image has been successfully uploaded!')
-                    // this.setDefaultImage()
+                    console.log('Image has been successfully uploaded!')
                 }
             })
             .catch((err) => {
@@ -131,7 +130,7 @@ export default class CreatePost extends Component {
                 <div className="col-12 col-lg-10 offset-lg-1">
                     <h2 className='mb-3'>Create New Post</h2>
                     <form onSubmit={this.onSubmit}>
-                        <img src={imgPreview} alt='upload-image' className="thumbnail mb-3" style={previewImg} />
+                        <img src={imgPreview} alt='upload' className="thumbnail mb-3" style={previewImg} />
                         <input type="file" className="btn" onChange={this.uploadImage} />
                         <div className="form-group">
                             <label>Title:</label>

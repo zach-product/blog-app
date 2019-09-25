@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 import { NavBarAdmin } from '..'
 import './../../App.css'
@@ -8,7 +9,11 @@ export default class PreviewPost extends Component {
     constructor(props) {
         super(props)
 
+        this.publishPost = this.publishPost.bind(this)
+
         this.state = {
+            _id: '',
+            postId: '',
             mainImgName: '',
             mainImgPath: '',
             title: '',
@@ -29,6 +34,8 @@ export default class PreviewPost extends Component {
         axios.get('/pubs/'+this.props.match.params.id)
             .then(response => {
                 this.setState({ 
+                    _id: response.data._id,
+                    postId: response.data.postId,
                     mainImgName: response.data.mainImgName,
                     mainImgPath: response.data.mainImgPath,
                     title: response.data.title,
@@ -44,15 +51,38 @@ export default class PreviewPost extends Component {
             })
     }
 
+    publishPost(e) {
+        e.preventDefault()
+
+        const post = {
+            postId: this.state.postId,
+            mainImgName: this.state.mainImgName,
+            mainImgPath: this.state.mainImgPath,
+            title: this.state.title,
+            topics: this.state.topics,
+            published: new Date(),
+            intro: this.state.intro,
+            sections: this.state.sections,
+            closing: this.state.closing,
+        }
+
+        console.log(post)
+
+        axios.post('/pubs/publish/'+this.props.match.params.id, post)
+            .then(res => console.log(res.data))
+
+        window.location = '/admin/posts'
+    }
+
     render() {
-        const { mainImgName, mainImgPath, title, topics, published, intro, sections, closing } = this.state
+        const { _id, mainImgName, mainImgPath, title, topics, published, intro, sections, closing } = this.state
         return (
             <React.Fragment>
                 <NavBarAdmin />
                 <div className="container" style={stickyHeader}>
                     <div className="col-12 col-lg-10 offset-lg-1 py-3 py-lg-2">
                         <div style={imgContainer}>
-                            <img style={aboutImg} className="rounded" src={mainImgPath} alt={mainImgName} />
+                            <img style={mainImgBlog} className="rounded img-mobile-post" src={mainImgPath} alt={mainImgName} />
                         </div>
                         <h1 className="my-4">{title}</h1>
                         {topics.map((topic, index) => {
@@ -69,8 +99,14 @@ export default class PreviewPost extends Component {
                         })}
                         <br />
                         <p style={fontStyling}>{closing}</p>
+                        <hr className="my-4" />
+                        <div className="mb-3">
+                            <Link to={"/admin/edit/"+_id}><button className="btn btn-primary mr-2">Edit Post</button></Link>
+                            <button onClick={this.publishPost} className="btn btn-success">Publish Post</button>
+                        </div>
                     </div>
                 </div>
+                
             </React.Fragment>
         )
     }
@@ -89,10 +125,9 @@ const imgContainer = {
     display: "flex",
 }
 
-const aboutImg  = {
-    height: "100%",
+const mainImgBlog  = {
+    height: "250px",
     width: "100%",
-    maxHeight: "300px",
     objectFit: "cover",
     objectPosition: "-50% 50",
 }

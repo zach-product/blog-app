@@ -66,6 +66,10 @@ button.btn-square:hover {
         max-height: 150px
     }
 
+    .img-mobile-post {
+        max-height: 200px
+    }
+
     .about-img-mobile {
         max-height: 300px
     }
