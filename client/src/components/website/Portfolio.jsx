@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { NavBar, Footer } from '..';
 import alchemistLogo from '../../assets/alchemist-logo_only.png'
 import SignOnSiteLogo from '../../assets/signonsite-logo.png'
+import '../../App.css'
 
 export default class Portfolio extends Component {
     constructor(props) {
