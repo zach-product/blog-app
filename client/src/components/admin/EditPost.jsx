@@ -103,7 +103,7 @@ export default class EditPost extends Component {
     cleanInputArray(e) {
         const name = e.target.name
         const value = e.target.value
-        const arr = value.split(",").map(item => item.trim())
+        const arr = value.split(",")
         console.log(arr)
         this.setState({ [name]: arr })
     }
@@ -164,10 +164,11 @@ export default class EditPost extends Component {
         return (
             <div className="container" style={stickyHeader}>
                 <div className="col-12 col-lg-10 offset-lg-1">
-                    <h3 className='mb-3'>Edit Post</h3>
+                    <h2 className='mb-2'>Edit Post</h2>
+                    <hr className="mb-4" />
                     <form>
-                        <img src={imgPreview} alt='upload' className="thumbnail mb-3" style={previewImg} />
-                        <input type="file" className="btn" onChange={this.uploadImage} />
+                        <img src={imgPreview} alt='upload' className="thumbnail mb-4 mr-3" style={previewImg} />
+                        <input type="file" className="mt-3 mb-4" onChange={this.uploadImage} />
                         <div className="form-group">
                             <label>Title:</label>
                             <input

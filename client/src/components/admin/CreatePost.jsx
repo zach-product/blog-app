@@ -128,10 +128,11 @@ export default class CreatePost extends Component {
         return (
             <div className="container" style={stickyHeader}>
                 <div className="col-12 col-lg-10 offset-lg-1">
-                    <h2 className='mb-3'>Create New Post</h2>
+                    <h2 className='mb-2'>Create New Post</h2>
+                    <hr className="mb-4" />
                     <form onSubmit={this.onSubmit}>
                         <img src={imgPreview} alt='upload' className="thumbnail mb-3" style={previewImg} />
-                        <input type="file" className="btn" onChange={this.uploadImage} />
+                        <input type="file" className="mt-3 mb-4" onChange={this.uploadImage} />
                         <div className="form-group">
                             <label>Title:</label>
                             <input
