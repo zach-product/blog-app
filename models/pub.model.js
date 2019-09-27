@@ -21,9 +21,10 @@ const pubSchema = new Schema(
             required: true,
             trim: true 
         },
-        topics: { 
-                type: [String],
-        },
+        topics: [{ 
+                type: String,
+                trim: true
+        }],
         published: { 
             type: Date,
         },
