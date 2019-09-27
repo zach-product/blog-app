@@ -90,7 +90,7 @@ const imgContainer = {
 }
 
 const mainImgPreview = {
-    height: "200px",
+    height: "225px",
     width: "100%",
     objectFit: "cover",
     objectPosition: "-50% 50"
