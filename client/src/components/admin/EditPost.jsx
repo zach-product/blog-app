@@ -168,7 +168,7 @@ export default class EditPost extends Component {
                     <hr className="mb-4" />
                     <form>
                         <img src={imgPreview} alt='upload' className="thumbnail mb-4 mr-3" style={previewImg} />
-                        <input type="file" className="mt-3 mb-4" onChange={this.uploadImage} />
+                        <input type="file" className="btn mb-4" onChange={this.uploadImage} />
                         <div className="form-group">
                             <label>Title:</label>
                             <input
