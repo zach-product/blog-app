@@ -1,41 +1,88 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import DatePicker from 'react-datepicker'
-import "react-datepicker/dist/react-datepicker.css"
-import ContentEditor from './ContentEditor';
+import SectionInputs from './SectionInputs';
+import DefaultImg from './../../assets/default-img.jpg'
 
 export default class CreatePost extends Component {
     constructor(props) {
         super(props)
 
+        this.uploadImage = this.uploadImage.bind(this)
         this.onChangeInput = this.onChangeInput.bind(this)
-        this.onChangePublished = this.onChangePublished.bind(this)
-        this.onChangeContent = this.onChangeContent.bind(this)
-        this.trimInput = this.trimInput.bind(this)
         this.cleanInputArray = this.cleanInputArray.bind(this)
+        this.titleToPostId = this.titleToPostId.bind(this)
+        this.addSect = this.addSect.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
+            imgPreview: DefaultImg,
+            postId: '',
+            mainImgName: '',
+            mainImgPath: '',            
             title: '',
             topics: '',
-            content: {},
-            published: new Date(),
-            users: [],
+            intro: '',
+            sections: [
+                {
+                    header: '',
+                    content: ''
+                }
+            ],
+            closing: '',
         }
+    }
+
+    setDefaultImage() {
+        this.setState({
+            imgPreview: DefaultImg
+        })
+    }
+
+    uploadImage(e) {
+        let imageFormObj = new FormData()
+
+        imageFormObj.append('imageName',  e.target.files[0].name)
+        imageFormObj.append('imageData', e.target.files[0])
+
+        this.setState({
+            imgPreview: URL.createObjectURL(e.target.files[0]),
+            mainImgName: e.target.files[0].name,
+            mainImgPath: "./../../../../uploads/" + e.target.files[0].name
+        })
+
+        axios.post('/image/upload', imageFormObj)
+            .then((data) => {
+                if (data.data.success) {
+                    console.log('Image has been successfully uploaded!')
+                }
+            })
+            .catch((err) => {
+                alert('Error while uploading image')
+                this.setDefaultImage()
+            })
+
     }
 
     onChangeInput(e) {
         const name = e.target.name
         const value = e.target.value
-        this.setState({
-            [name]: value,
-        })
+
+        if(["header", "content"].includes(e.target.title)) {
+            let sections = [...this.state.sections]
+            sections[e.target.dataset.id][e.target.title] = e.target.value
+            this.setState({ sections }, () => console.log(this.state.sections))
+        } else {
+            this.setState({
+                [name]: value,
+            })
+        }
     }
 
-    onChangePublished(date) {
-        this.setState({
-            published: date
-        })
+    titleToPostId(title) {
+        const trimmed = title.trim()
+        const replaced = trimmed.split(' ').join('-')
+        const lowercase = replaced.toLowerCase()
+        return lowercase
     }
 
     cleanInputArray(e) {
@@ -46,46 +93,45 @@ export default class CreatePost extends Component {
         this.setState({ [name]: arr })
     }
 
-    trimInput(e) {
-        const name = e.target.name
-        const value = e.target.value
-        const trimmedStr= value.trim()
-        console.log(trimmedStr)
-        this.setState({ [name]: trimmedStr })
-    }
-
-    onChangeContent(newContent) {
-        this.setState({
-            content: newContent
-        })
+    addSect(e) {
+        e.preventDefault()
+        this.setState(prevState => ({
+            sections: [...prevState.sections, { header: '', content: '' }],
+        }))
     }
 
     onSubmit(e) {
         e.preventDefault()
-
+       
         const post = {
+            postId: this.titleToPostId(this.state.title),
+            mainImgName: this.state.mainImgName,
+            mainImgPath: this.state.mainImgPath,
             title: this.state.title,
             topics: this.state.topics,
-            content: this.state.content,
-            published: this.state.published,
-        }
+            sections: this.state.sections,
+            intro: this.state.intro,
+            closing: this.state.closing,
+        } 
 
         console.log(post)
 
-        axios.post('http://localhost:3000/pubs/add', post)
+        axios.post('/pubs/add', post)
             .then(res => console.log(res.data))
             .catch(err => console.log(err))
 
-        // window.location = '/admin/posts'
+        window.location = '/admin/drafts'
     }
 
     render() {
-        const { title, topics, published } = this.state
+        const { imgPreview, title, topics, intro, sections, closing } = this.state
         return (
-            <div className="container" style={navSpace}>
+            <div className="container" style={stickyHeader}>
                 <div className="col-12 col-lg-10 offset-lg-1">
-                    <h3 className='mb-3'>Create New Post</h3>
+                    <h2 className='mb-3'>Create New Post</h2>
                     <form onSubmit={this.onSubmit}>
+                        <img src={imgPreview} alt='upload' className="thumbnail mb-3" style={previewImg} />
+                        <input type="file" className="btn" onChange={this.uploadImage} />
                         <div className="form-group">
                             <label>Title:</label>
                             <input
@@ -94,7 +140,6 @@ export default class CreatePost extends Component {
                                 name="title"
                                 value={title}
                                 onChange={this.onChangeInput}
-                                onBlur={this.trimInput}
                             />
                         </div>
                         <div className="form-group">
@@ -108,36 +153,41 @@ export default class CreatePost extends Component {
                                 onBlur={this.cleanInputArray}
                             />
                         </div>
-                        {/* <div className="form-group">
-                            <label>Content:</label>
+                        <div className="form-group">
+                            <label>Intro:</label>
                             <textarea
                                 type="text"
-                                rows="10"
+                                rows="5"
                                 className="form-control"
-                                name="content"
-                                value={content}
+                                name="intro"
+                                value={intro}
                                 onChange={this.onChangeInput}
                             />
-                        </div> */}
-                        <div className="form-group">
-                            <label>Published:</label>
-                            <div>
-                                <DatePicker
-                                    selected={published}
-                                    onChange={this.onChangePublished} 
-                                />
-                            </div>
                         </div>
+
+                        <hr />
+                        
+                        <h3 className="my-3">Sections</h3>
+                        <SectionInputs sections={sections} onChangeInput={this.onChangeInput} />
+                        <button onClick={this.addSect} className="btn btn-outline-primary btn-sm mb-2">Add New Section</button>
+
+                        <hr />
+
                         <div className="form-group">
-                            <label>Content: </label>
-                            <ContentEditor
-                                onChangeContent={this.onChangeContent}
+                            <label>Closing:</label>
+                            <textarea
+                                type="text"
+                                rows="5"
+                                className="form-control"
+                                name="closing"
+                                value={closing}
+                                onChange={this.onChangeInput}
                             />
                         </div>
                         <div className="form-group">
                             <input
                                 type="submit"
-                                className="btn btn-primary"
+                                className="btn btn-primary mr-2"
                                 value="Create New Post"
                             />
                         </div>
@@ -148,6 +198,11 @@ export default class CreatePost extends Component {
     }
 }
 
-const navSpace = {
-    marginTop: "calc(70px + 3%)" 
+const stickyHeader = {
+    marginTop: "calc(70px + 3%)"
+}
+
+const previewImg = {
+    maxHeight: "200px",
+    width: "auto"
 }

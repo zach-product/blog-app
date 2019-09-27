@@ -9,6 +9,7 @@ require('dotenv').config()
 const app = express()
 const port = process.env.PORT || 8000
 
+app.use('/uploads', express.static('uploads'))
 app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, "client", "build")))
@@ -28,10 +29,12 @@ db.once('open', () => {
 
 const pubsRouter = require('./routes/pubs')
 const usersRouter = require('./routes/users')
+const imageRouter = require('./routes/image')
 
 app.use('/pubs', pubsRouter)
 app.use('/users', usersRouter)
 app.use('/api/mail', sendMail)
+app.use('/image', imageRouter)
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"))

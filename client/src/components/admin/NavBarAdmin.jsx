@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-
+import { Link, NavLink } from 'react-router-dom'
+import './../../App.css'
 import logo from '../../assets/logo.svg'
 
 export default class NavBarAdmin extends Component {
     constructor(props) {
         super(props)
         this.toggleNavBar = this.toggleNavBar.bind(this)
+        this.toggleHoverBtn = this.toggleHoverBtn.bind(this)
 
         this.state = {
             collapsed: true,
@@ -19,43 +20,53 @@ export default class NavBarAdmin extends Component {
         })
     }
 
-    render() {
-        const collapsed  = this.state.collapsed
-        const classOne = collapsed ? 'collapse navbar-collapse justify-content-lg-between' : 'collapse navbar-collapse justify-content-lg-between show'
-        const classTwo = collapsed ? 'navbar-toggler navbar-toggler-right collapsed' : 'navbar-toggler navbar-toggler-right'
+    toggleHoverBtn(e) {
+        this.setState({
+            hoverBtn: !this.state.hoverBtn
+        })
+    }
 
+    render() {
+        const { collapsed, hoverBtn } = this.state
+        const class1 = collapsed ? 'collapse navbar-collapse justify-content-lg-between' : 'collapse navbar-collapse justify-content-lg-between show'
+        const class2 = collapsed ? 'navbar-toggler collapsed' : 'navbar-toggler'
+        const classTopBar = collapsed ? 'icon-bar top-bar-collapsed' : 'icon-bar top-bar'
+        const classMiddleBar = collapsed ? 'icon-bar middle-bar-collapsed' : 'icon-bar middle-bar'
+        const classBottomBar = collapsed ? 'icon-bar bottom-bar-collapsed' : 'icon-bar bottom-bar'
 
         return (
             <header className="fixed-top page-header">
                 <nav style={navStyling} className='navbar navbar-expand-lg navbar-dark'>
                     <div className="container">
-                        <Link to="/admin/posts" className="navbar-brand brand-font align-middle">
-                            <img src={logo} width="50" length="50" alt="Zachary Pritchard" />
-                            <span className="ml-3">Zach Pritchard - Admin</span>
+                        <Link to="/admin" className="navbar-brand brand-font align-middle mr-3">
+                            <img src={logo} width="50" length="50" alt="Zach Pritchard" />
                         </Link>
                         <button 
-                            onClick={this.toggleNavBar} 
-                            className={`${classTwo}`} 
-                            type="button"
-                            target="_blank"
+                            onClick={this.toggleNavBar}
+                            className={`${class2}`} 
+                            type="button" 
                             data-toggle="collapse" 
                             data-target="#navbarNav" 
                             aria-controls="navbarNav" 
                             aria-expanded="false" 
                             aria-label="Toggle navigation">
-                            <span className="navbar-toggler-icon" />
+                            <span className={`${classTopBar}`}></span>
+                            <span className={`${classMiddleBar}`}></span>
+                            <span className={`${classBottomBar}`}></span>
                         </button>
-                        <div className={`${classOne}`} id="navbarNav">
-                            <ul className="navbar-nav">
-                                <li className="nav-item mx-2">
-                                    <Link className="nav-link" to="/admin/posts">Posts</Link>
+                        <div className={`${class1}`} id="navbarNav">
+                            <ul className="navbar-nav justify-content-inbetween text-center">
+                                <li className="nav-item mx-3">
+                                    <NavLink style={navLinks} className="nav-link" to="/admin/posts">Posts</NavLink>
                                 </li>
-                                <li className="nav-item mx-2">
-                                    <Link className="nav-link" to="/admin/projects">Projects</Link>
+                                <li className="nav-item mx-3">
+                                    <NavLink style={navLinks} className="nav-link" to="/admin/drafts">Drafts</NavLink>
                                 </li>
                             </ul>
-                            <div className="align-middle float-right my-2">
-                                <Link className="btn btn-outline-light font-weight-bold" to="/admin/users/create" role="button">Create User</Link>
+                            <div className="align-middle">
+                                <form className="text-center mx-lg-0 my-3 my-lg-0">
+                                    <Link to="/admin/create"><button onMouseEnter={this.toggleHoverBtn} onMouseLeave={this.toggleHoverBtn} style={ hoverBtn ? createPostBtnHover : createPostBtn} className="btn my-2 my-sm-0" type="submit">Create New Post</button></Link>
+                            `   </form>
                             </div>
                         </div>
                     </div>
@@ -67,4 +78,23 @@ export default class NavBarAdmin extends Component {
 
 const navStyling = {
     background: '#b73634'
+}
+
+const navLinks = {
+    fontWeight: "400",
+    fontSize: "18px",
+    margin: '.8rem',
+    letterSpacing: "1px"
+}
+
+const createPostBtn = {
+    borderColor: "#8fcc9f",
+    color: "#8fcc9f",
+    fontWeight: "500"
+}
+    
+const createPostBtnHover = {
+    background: "#8fcc9f",
+    color: "#b73634",
+    fontWeight: "500"
 }

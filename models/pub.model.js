@@ -3,23 +3,50 @@ const Schema = mongoose.Schema
 
 const pubSchema = new Schema(
     {
+        postId: { 
+            type: String, 
+            trim: true, 
+            unique: true
+        },
+        mainImgName: { 
+            type: String, 
+            trim: true 
+        },
+        mainImgPath: { 
+            type: String, 
+            trim: true 
+        },
         title: { 
             type: String, 
-            required: true 
+            required: true,
+            trim: true 
         },
         topics: { 
                 type: [String],
         },
-        content: { 
-            type: Object,
-            required: true 
-        },
         published: { 
             type: Date,
         },
-        comments: { 
-            type: [String] 
-        }
+        intro: { 
+            type: String,
+        },
+        sections: [
+            {
+                header: {
+                    type: String,
+                },
+                content: {
+                    type: String,
+                },
+            }
+        ],
+        closing: { 
+            type: String,
+        },
+        comments: [{
+            author: { type: String, trim: true },
+            comment: String
+        }],
     },
     { timestamps: true },
 )
