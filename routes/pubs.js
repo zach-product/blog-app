@@ -24,7 +24,6 @@ router.route('/add').post((req, res) => {
     const intro = req.body.intro
     const sections = req.body.sections
     const closing = req.body.closing
-    const comments = req.body.comments
 
     const newPub = new Pub({
         postId,
@@ -35,7 +34,6 @@ router.route('/add').post((req, res) => {
         intro,
         sections,
         closing,
-        comments,
     })
 
     newPub.save()
@@ -66,7 +64,6 @@ router.route('/update/:id').post((req, res) => {
             pub.intro = req.body.intro
             pub.sections = req.body.sections
             pub.closing = req.body.closing
-            pub.comments = req.body.comments
             
             pub.save()
                 .then(() => res.json('Post succesfully updated!'))
@@ -87,7 +84,6 @@ router.route('/publish/:id').post((req, res) => {
             pub.intro = req.body.intro
             pub.sections = req.body.sections
             pub.closing = req.body.closing
-            pub.comments = req.body.comments
             
             pub.save()
                 .then(() => res.json('Post succesfully published!'))
