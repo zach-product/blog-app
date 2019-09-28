@@ -88,7 +88,7 @@ export default class CreatePost extends Component {
     cleanInputArray(e) {
         const name = e.target.name
         const value = e.target.value
-        const arr = value.split(",").map(item => item.trim())
+        const arr = value.split(",").map(item => item.toLowerCase())
         console.log(arr)
         this.setState({ [name]: arr })
     }

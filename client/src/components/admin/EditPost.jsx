@@ -103,7 +103,7 @@ export default class EditPost extends Component {
     cleanInputArray(e) {
         const name = e.target.name
         const value = e.target.value
-        const arr = value.split(",")
+        const arr = value.split(",").map(item => item.toLowerCase())
         console.log(arr)
         this.setState({ [name]: arr })
     }
@@ -168,7 +168,7 @@ export default class EditPost extends Component {
                     <hr className="mb-4" />
                     <form>
                         <img src={imgPreview} alt='upload' className="thumbnail mb-4 mr-3" style={previewImg} />
-                        <input type="file" className="btn mb-4" onChange={this.uploadImage} />
+                        <input type="file" className="btn" onChange={this.uploadImage} />
                         <div className="form-group">
                             <label>Title:</label>
                             <input
