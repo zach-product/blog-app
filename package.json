@@ -5,6 +5,7 @@
   "author": "zmp",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "concurrently": "^4.1.2",
     "cors": "^2.8.5",
@@ -13,7 +14,9 @@
     "mailgun-js": "^0.22.0",
     "mongoose": "^5.6.10",
     "multer": "^1.4.2",
-    "nodemon": "^1.19.2"
+    "nodemon": "^1.19.2",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0"
   },
   "scripts": {
     "client": "cd client && yarn start",
