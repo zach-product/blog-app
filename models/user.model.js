@@ -1,4 +1,6 @@
 const mongoose = require('mongoose')
+const crypto = require('bcryptjs')
+const jwt = require('jsonwebtoken') // Add jsonwebtoken dependency
 
 const Schema = mongoose.Schema
 
@@ -20,6 +22,8 @@ const userSchema = new Schema(
             match: [/\S+@\S+\.\S+/, 'is invalid'], 
             index: true
         },
+        hash: String,
+        salt: String,
         message: {
             type: String,
         },
