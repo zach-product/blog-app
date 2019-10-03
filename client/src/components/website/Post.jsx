@@ -26,7 +26,7 @@ export default class Post extends Component {
     }
 
     componentDidMount() {
-        axios.get('/pubs/'+this.props.match.params.id)
+        axios.get('/api/pubs/'+this.props.match.params.id)
             .then(response => {
                 this.setState({ 
                     mainImgName: response.data.mainImgName,

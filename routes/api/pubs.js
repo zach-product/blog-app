@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const Pub = require('../models/pub.model')
+const Pub = require('../../models/pub.model')
 
 router.route('/').get((req, res) => {
     Pub.find( { published: { $exists: true } } )

@@ -44,14 +44,11 @@ db.once('open', () => {
 })
 
 // Models & routes
-const pubsRouter = require('./routes/pubs')
-const usersRouter = require('./routes/users')
-const imageRouter = require('./routes/image')
-
-app.use('/pubs', pubsRouter)
-app.use('/users', usersRouter)
-app.use('/api/mail', sendMail)
-app.use('/image', imageRouter)
+require('./models/user.model')
+require('./models/pub.model')
+require('./models/image.model')
+require('./config/passport')
+app.use(require('./routes'))
 
 // Error handlers & middlewares
 if(!isProduction){
