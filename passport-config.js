@@ -21,7 +21,7 @@ module.exports = passport => {
                     if(user) {
                         return done(null, {
                             id: user.id,
-                            firstname: user.firstname,
+                            firstname: user.firstname, // Only uses name on guide so check if error!
                             lastname: user.lastname,
                             email: user.email
                         })
