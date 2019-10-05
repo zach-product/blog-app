@@ -1,4 +1,5 @@
 const router = require('express').Router()
+
 const Pub = require('../models/pub.model')
 
 router.route('/').get((req, res) => {

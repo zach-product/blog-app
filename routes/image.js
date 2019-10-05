@@ -1,5 +1,6 @@
 const router = require('express').Router()
-let Image = require('../models/image.model')
+
+const Image = require('../models/image.model')
 const multer = require('multer')
 
 const storage = multer.diskStorage({
