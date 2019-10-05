@@ -14,7 +14,7 @@ router.post('/register', (req, res) => {
         .then(user => {
             if(user) {
                 let error = 'Email already exists!'
-                return res.status(400).json(error)
+                res.status(400).json(error)
             } else {
                 const newUser = new User({
                     firstname: req.body.firstname,
@@ -33,6 +33,7 @@ router.post('/register', (req, res) => {
                 })
             }
         })
+        .catch(err => res.status(400).json('Error: ' + err))
 })
 
 router.post('/login', (req, res) => {
@@ -40,8 +41,8 @@ router.post('/login', (req, res) => {
     User.findOne({ email })
         .then(user => {
             if(!user) {
-                errors.email = "This email doesn't exist"
-                return res.status(400).json(errors)
+                let error = "This email doesn't exist"
+                return res.status(400).json(error)
             }
             bcrypt.compare(password, user.password) 
                 .then(isMatch => {
@@ -57,11 +58,12 @@ router.post('/login', (req, res) => {
                                 res.json({ success: true, token: `Bearer ${token}` })
                             })
                     } else {
-                        errors.password = "Password is incorrect"
-                        res.status(400).json(errors)
+                        let error = "Password is incorrect"
+                        res.status(400).json(error)
                     }
                 })
         })
+        .catch(err => res.status(400).json('Error: ' + err))
 })
 
 
@@ -81,7 +83,7 @@ router.route('/add').post((req, res) => {
 
     newUser.save()
         .then(() => res.json('User successfully added!'))
-        .catch(err => res.status(400).json('Error :' + err))
+        .catch(err => res.status(400).json('Error: ' + err))
     
 })
 
