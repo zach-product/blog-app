@@ -1,5 +1,40 @@
 const router = require('express').Router()
-let User = require('../models/user.model')
+
+const User = require('../models/user.model')
+const bcrypt = require('bcryptjs')
+
+require('dotenv').config()
+const secret = process.env.SECRET || 'the default secret'
+
+const passport = require('passport')
+const jwt = require('jsonwebtoken')
+
+router.post('/register', (req, res) => {
+    User.findOne({ email: req.body.email })
+        .then(user => {
+            if(user) {
+                let error = 'Email already exists!'
+                return res.status(400).json(error)
+            } else {
+                const newUser = new User({
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    email: req.body.email,
+                    password: req.body.password
+                })
+                bcrypt.genSalt(10, (err, salt) => {
+                    if(err) throw err
+                    bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        if(err) throw err
+                        newUser.password = hash
+                        newUser.save().then(user => res.json(user))
+                            .catch(err => res.status(400).json(err))
+                    })
+                })
+            }
+        })
+})
+
 
 router.route('/').get((req, res) => {
     User.find()
