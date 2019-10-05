@@ -39,13 +39,13 @@ app.use(express.json())
 app.use('/uploads', express.static('uploads'))
 app.use(express.static(path.join(__dirname, "client", "build")))
 
-app.use((req, res, next) => {
-    if (req.body) log.info(req.body)
-    if (req.params) log.info(req.params)
-    if (req.query) log.inf(req.query)
-    log.info(`Received a ${req.method} request from ${req.ip} for ${req.url}`)
-    next()
-})
+// app.use((req, res, next) => {
+//     if (req.body) log.info(req.body)
+//     if (req.params) log.info(req.params)
+//     if (req.query) log.inf(req.query)
+//     log.info(`Received a ${req.method} request from ${req.ip} for ${req.url}`)
+//     next()
+// })
 
 const pubsRouter = require('./routes/pubs')
 const usersRouter = require('./routes/users')
