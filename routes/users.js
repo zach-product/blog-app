@@ -14,7 +14,7 @@ router.post('/register', (req, res) => {
         .then(user => {
             if(user) {
                 let error = 'Email already exists!'
-                res.status(400).json(error)
+                return res.status(400).json(error)
             } else {
                 const newUser = new User({
                     firstname: req.body.firstname,
@@ -33,7 +33,6 @@ router.post('/register', (req, res) => {
                 })
             }
         })
-        .catch(err => res.status(400).json('Error: ' + err))
 })
 
 router.post('/login', (req, res) => {
@@ -59,11 +58,10 @@ router.post('/login', (req, res) => {
                             })
                     } else {
                         let error = "Password is incorrect"
-                        res.status(400).json(error)
+                        return res.status(400).json(error)
                     }
                 })
         })
-        .catch(err => res.status(400).json('Error: ' + err))
 })
 
 
@@ -83,7 +81,7 @@ router.route('/add').post((req, res) => {
 
     newUser.save()
         .then(() => res.json('User successfully added!'))
-        .catch(err => res.status(400).json('Error: ' + err))
+        .catch(err => res.status(400).json('Error :' + err))
     
 })
 
