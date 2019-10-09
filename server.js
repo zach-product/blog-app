@@ -14,7 +14,7 @@ const app = express()
 
 const port = process.env.PORT || 8000
 
-const uri = process.env.MONGOLAB_YELLOW_URI || process.env.MONGODB_URI
+const uri = process.env.MONGOLAB_YELLOW_URI || process.env.MONGODB_LOCAL
 mongoose
     .connect(uri, { useNewUrlParser: true, useCreateIndex: true })
     .catch(e => {
@@ -24,7 +24,7 @@ mongoose
 const db = mongoose.connection
 
 db.once('open', () => {
-    console.log('MongoDB successfully connected!')
+    console.log(`MongoDB successfully connected using ${uri}!`)
 })
 
 app.use(passport.initialize())
@@ -33,7 +33,7 @@ require('./passport-config')(passport)
 
 app.use(cp())
 app.use(bp.urlencoded({extended: false}))
-app.use(bp.json())
+// app.use(bp.json())
 app.use(cors())
 app.use(express.json())
 app.use('/uploads', express.static('uploads'))
