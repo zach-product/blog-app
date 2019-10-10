@@ -1,20 +1,21 @@
 const express = require('express')
+const cp = require('cookie-parser')
+const bp = require('body-parser')
 const cors = require('cors')
-const mongoose = require('mongoose')
-const path = require("path")
-const sendMail = require('./utils/sendMail')
+const path = require('path')
+const morgan = require('morgan')
 
 require('dotenv').config()
 
+const mongoose = require('mongoose')
+const passport = require('passport')
+const sendMail = require('./utils/sendMail')
+
 const app = express()
+
 const port = process.env.PORT || 8000
 
-app.use('/uploads', express.static('uploads'))
-app.use(cors())
-app.use(express.json())
-app.use(express.static(path.join(__dirname, "client", "build")))
-
-const uri = process.env.MONGOLAB_YELLOW_URI || process.env.MONGODB_URI
+const uri = process.env.MONGOLAB_YELLOW_URI || process.env.MONGODB_LOCAL
 mongoose
     .connect(uri, { useNewUrlParser: true, useCreateIndex: true })
     .catch(e => {
@@ -24,8 +25,29 @@ mongoose
 const db = mongoose.connection
 
 db.once('open', () => {
-    console.log('MongoDB successfully connected!')
+    console.log(`MongoDB successfully connected using ${uri}!`)
 })
+
+app.use(passport.initialize())
+
+require('./passport-config')(passport)
+
+app.use(cp())
+app.use(bp.urlencoded({extended: false}))
+// app.use(bp.json())
+app.use(cors())
+app.use(morgan('combined'))
+app.use(express.json())
+app.use('/uploads', express.static('uploads'))
+app.use(express.static(path.join(__dirname, "client", "build")))
+
+// app.use((req, res, next) => {
+//     if (req.body) log.info(req.body)
+//     if (req.params) log.info(req.params)
+//     if (req.query) log.inf(req.query)
+//     log.info(`Received a ${req.method} request from ${req.ip} for ${req.url}`)
+//     next()
+// })
 
 const pubsRouter = require('./routes/pubs')
 const usersRouter = require('./routes/users')
@@ -40,6 +62,7 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"))
 })
 
-app.listen(port, () => {
+app.listen(port, err => {
+    if (err) console.log(err)
     console.log(`Server running on port ${port}`)
 })
