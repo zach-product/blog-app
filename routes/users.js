@@ -40,8 +40,8 @@ router.post('/login', (req, res) => {
     User.findOne({ email })
         .then(user => {
             if(!user) {
-                errors.email = "This email doesn't exist"
-                return res.status(400).json(errors)
+                let error = "This email doesn't exist"
+                return res.status(400).json(error)
             }
             bcrypt.compare(password, user.password) 
                 .then(isMatch => {
@@ -71,7 +71,7 @@ router.route('/').get((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err))
 }) 
 
-router.route('/add').post((req, res) => {
+router.route('/contact').post((req, res) => {
     const firstname = req.body.firstname
     const lastname = req.body.lastname
     const email = req.body.email
