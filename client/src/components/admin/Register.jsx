@@ -46,7 +46,6 @@ export default class Register extends Component {
 
         axios.post('/users/register', user)
             .catch(error => {
-                console.log('Registration error: ')
                 console.log(error)  
             })
         

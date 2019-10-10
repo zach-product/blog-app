@@ -6,6 +6,7 @@ export default class Login extends Component {
         super(props)
 
         this.onChangeInput = this.onChangeInput.bind(this)
+        this.handleClearForm = this.handleClearForm.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
         this.toggleHoverBtn = this.toggleHoverBtn.bind(this)
 
@@ -30,6 +31,13 @@ export default class Login extends Component {
         })
     }
 
+    handleClearForm() {
+        this.setState({
+            email: '',
+            password: ''
+        })
+    }
+
     onSubmit(e) {
         e.preventDefault()
 
@@ -43,9 +51,10 @@ export default class Login extends Component {
         axios.post('/users/login', user)
             .then(this.props.toggleIsLoggedIn)
             .catch(error => {
-                console.log('login error: ')
-                console.log(error)  
+                console.log(error)
             })
+        
+        this.handleClearForm()
     }
     
     render() {
