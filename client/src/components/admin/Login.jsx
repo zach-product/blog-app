@@ -41,6 +41,7 @@ export default class Login extends Component {
         console.log(user)
 
         axios.post('/users/login', user)
+            .then(this.props.toggleIsLoggedIn)
             .catch(error => {
                 console.log('login error: ')
                 console.log(error)  
